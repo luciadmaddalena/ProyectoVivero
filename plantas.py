@@ -27,3 +27,4 @@ def baja_planta ():
         if nombre_comun == alta_planta ('nombre_comun'):
             stock_de_plantas.remove(planta)
             break
+
