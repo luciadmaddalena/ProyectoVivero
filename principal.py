@@ -31,32 +31,7 @@ def main():
             print("Opcion no valida, intente de nuevo")
 
 
-def menu_plantas():
-    while True: 
-        print("==== STOCK DE PLANTAS ====")
-        print("1. Cargar una planta nueva")
-        print("2. Ver listado de plantas")
-        print("3. Buscar una planta")
-        print("4. Actualizar stock o precio")
-        print("5. Dar de baja una planta")
-        print("9. Volver al menu principal")
-        
-        opcion = input("Que queres hacer?")
 
-        if opcion == "1":
-            alta_planta()
-        elif opcion == "2":
-            ver_listado_plantas()
-        elif opcion == "3":
-            buscar_planta()
-        elif opcion == "4":
-            actualizar_stock_o_precio()
-        elif opcion == "5":
-            baja_planta()
-        elif opcion == "9":
-            break
-        else:
-            print("Opcion no valida, intente de nuevo")
 
     
 def menu_clientes ():
