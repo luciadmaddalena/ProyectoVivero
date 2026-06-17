@@ -1,0 +1,15 @@
+# guardamos donde se van a almacenar los datos
+total_de_plantas = []
+total_de_clientes = []
+total_de_ventas = []
+total_de_proveedores = []
+
+
+# opciones fijas para categorias y sectores
+
+categorias = ("arbol", "arbusto", "suculenta", "aromatica", "frutal", "ornamental", "otro")
+sectores = ("interior", "exterior", "invernadero", "huerta")
+tipos_clientes = ("particular", "paisajista", "empresa", "vivero amigo")
+formas_pago = ("efectivo", "tarjeta", "transferencia", "QR")
+
+

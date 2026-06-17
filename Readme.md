@@ -34,7 +34,7 @@ PLANTAS
                   (id -
                    nombre comun (str) - 
                   nombre cientifico (str) - 
-                  categoria (arbol, arbusto suculenta, aromatica, frutal, ornamental, otro) - 
+                  categoria () - 
                   sector (interior, exterior, invernadero, huerta) - 
                   cantida de stock (int) - 
                   precio unitario (float) - 
@@ -44,7 +44,7 @@ PLANTAS
      / actualizar stock cuando hay una venta, cuando muere una planta o cuando se reproduce
      / dar de baja una variedad que ya no se va a vender.
 
-CLIENTES
+CLIENTES (lucia)
     /   registrar a un cliente cuando viene por primera vez 
            (id)
            (dni)
@@ -55,10 +55,11 @@ CLIENTES
            (notas: a que se dedica, que le suele interesar)
     / listar todos los clientes
     / buscar clientes por DNI o nombre
-   / actualizar sus datos de contacto
+    / actualizar sus datos de contacto
     / eliminar a un cliente que pidio no figurar mas
 tambien le gustaria poder ver cuando consulta a un cliente, que compro antes y que encargos tiene activos
-VENTAS
+
+VENTAS (gabi)
 / registrar venta nueva
       id
        a que cliente corresponde
@@ -66,7 +67,7 @@ VENTAS
       items vendidos (codigo de planta + cantidad + precio al momento de la venta) 
       total de la venta
       forma de pago (efectivo, transferencia, tarjeta)
- / ver todas las ventas hechas
+ / ver todas las ventas hechas (listar)
  / buscar una venta por dni del cliente o por fecha
  / modificar una venta si se equivoco al cargarla
  / eliminar una venta anulada
@@ -74,7 +75,7 @@ VENTAS
      cuando se registra una venta, el stock de cada planta vendida tiene que descontarse automaticamente.
 
 
-PROVEEDORES
+PROVEEDORES (dama)
 / registrar un proveedor nuevo
        id
        nombre o razon social
@@ -109,4 +110,5 @@ cada item del menu, deberia llamar una funcion aparte. ej menu plantas, menu cli
 
 estas funciones serian los modulos. - estos se definen siempre antes de ser llamados, es decir antes del main
 
-Validaciones que necesito sí o sí Cuando ingreso un número (cantidad, precio, código), que verifique que sea un número. Cuando ingreso un email, que al menos chequee que tenga @ . Cuando busco algo y no existe, que me lo diga sin romperse. Los códigos de planta, cliente, venta, proveedor y encargo tienen que ser únicos y autoincrementales. 
+Validaciones que necesito sí o sí Cuando ingreso un número (cantidad, precio, código), que verifique que sea un número. 
+Cuando ingreso un email, que al menos chequee que tenga @ . Cuando busco algo y no existe, que me lo diga sin romperse. Los códigos de planta, cliente, venta, proveedor y encargo tienen que ser únicos y autoincrementales. 
