@@ -63,7 +63,6 @@ def listar_planta():
 
 
 
-
 def buscar_planta ():
     print("--- Buscar planta ---")
     if not total_de_plantas:

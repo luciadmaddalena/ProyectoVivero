@@ -1,4 +1,3 @@
-stock_de_plantas = []
 
 def mostrar_menu():
     print("==== VIVERO EL JACARANDA ====")
@@ -29,27 +28,6 @@ def main():
             break
         else:
             print("Opcion no valida, intente de nuevo")
-
-
-
-
-    
-def menu_clientes ():
-     while True:
-          print("==== CLIENTES ====")
-          print("1. Cargar un cliente nuevo")
-          print("2. Listar todos lo clientes")
-          print("3. Buscar un cliente")
-          print("4. Actualizar datos de contacto")
-          print("5. Dar de baja un cliente")
-          print("9. Volver al menu principal")
-
-          opcion = input("Que queres hacer?")
-
-          if opcion == "1":
-            alta_cliente()
-          elif opcion == "2":
-               ver_listado_clientes()
 
 main()
 
