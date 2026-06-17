@@ -1,3 +1,5 @@
+import datetime 
+
 def pedir_entero(mensaje):
     while True:
         entrada = input(mensaje).strip()
@@ -51,3 +53,15 @@ def siguiente_id (lista):
     if not lista:
         return 1
     return max(item['id'] for item in lista) + 1
+
+#agregue la validacion para fecha con su formato de dd/mm/aaaa
+
+def pedir_fecha(mensaje):
+    while True:
+        entrada = input(mensaje).strip()
+
+        try:
+            fecha = datetime.strptime(entrada, "%d/%m/%Y") #metodo para que se pueda convertir a fecha
+            return fecha
+        except ValueError:
+            print("Por favor, ingrese una fecha valida en formato DD/MM/AAAA.")
