@@ -1,3 +1,8 @@
+from plantas import menu_plantas
+from clientes import menu_clientes
+from ventas import menu_ventas
+from proveedores import menu_proveedores
+
 
 def mostrar_menu():
     print("==== VIVERO EL JACARANDA ====")
@@ -29,7 +34,6 @@ def main():
         else:
             print("Opcion no valida, intente de nuevo")
 
-main()
 
 
 
