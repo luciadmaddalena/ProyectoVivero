@@ -199,7 +199,7 @@ def menu_ventas():
         else:
              print("Opcion no valida, intente de nuevo")
 
-menu_ventas()
+
 
 
 

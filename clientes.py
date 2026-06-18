@@ -146,7 +146,6 @@ def menu_clientes():
         else:
              print("Opcion no valida, intente de nuevo")
 
-menu_clientes()
 
 
     
