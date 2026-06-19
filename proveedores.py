@@ -157,16 +157,16 @@ def modificar_proveedor():
         print("--------------------------------")
         return
     
-    nombre_proveedor = pedir_string("Para modificar un proveedor, ingrese el nombre: ")
+    nombre_proveedor = pedir_string("Para modificar un proveedor, ingrese el nombre: ").lower().strip()
     for proveedor in proveedores: 
-     if proveedor ["nombre_proveedor"] == nombre_proveedor:
+     if proveedor ["nombre_proveedor"].lower() == nombre_proveedor:
         print("--------------------------------")
         print("Ingrese los nuevos datos del proveedor")
-#sumar la validacion para modificar de a uno 
+
         proveedor["telefono"] = pedir_entero("Ingrese el nuevo teléfono: ")
         proveedor["email"] = pedir_email("Ingrese el nuevo email:")
-        proveedor["Producto que provee"] = pedir_string("Ingrese o modifique el nuevo producto: ")
-#sumar mensaje de confirmacion de que se modifico el proveedor 
+        proveedor["producto_que_provee"] = pedir_string("Ingrese o modifique el nuevo producto: ")
+
         print("--------------------------------")
         print(f"Los datos del proveedor se actualizaron")
         print("--------------------------------")

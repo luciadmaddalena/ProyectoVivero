@@ -12,5 +12,20 @@
     ],
     "total": 7500.0,
     "forma_pago": "efectivo"
+  },
+  {
+    "id": 3,
+    "id_cliente": 2,
+    "cliente_venta": "german lopez",
+    "fecha": "2026-02-02 00:00:00",
+    "items": [
+      {
+        "id_planta": 1,
+        "cantidad": 1,
+        "precio_unit": 2000.0
+      }
+    ],
+    "total": 2000.0,
+    "forma_pago": "tarjeta"
   }
 ]

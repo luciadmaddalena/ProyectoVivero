@@ -7,5 +7,14 @@
     "email": "luli@.",
     "tipo_cliente": "particular",
     "notas": "arboles"
+  },
+  {
+    "id": 2,
+    "dni": "336699",
+    "nombre_completo": "german lopez",
+    "telefono": "224488",
+    "email": "k@f.com",
+    "tipo_cliente": "vivero amigo",
+    "notas": "frutales"
   }
 ]
