@@ -1,31 +1,11 @@
 [
   {
     "id": 1,
-    "nombre_proveedor": "ariel",
-    "telefono": 4567,
-    "email": "ari@.",
+    "nombre_proveedor": "pepito grillo",
+    "telefono": 123456,
+    "email": "pepe@.",
     "localidad": "la plata",
-    "producto_que_provee": "semilla",
-    "fecha_ultimo_pedido": "2012-12-12 00:00:00",
-    "Producto que provee": "ramas"
-  },
-  {
-    "id": 2,
-    "nombre_proveedor": "juan",
-    "telefono": 611,
-    "email": "d@h.com",
-    "localidad": "cba",
-    "producto_que_provee": "semillas, macetas, tierra",
-    "fecha_ultimo_pedido": "2026-06-06 00:00:00"
-  },
-  {
-    "id": 3,
-    "nombre_proveedor": "maria",
-    "telefono": 655,
-    "email": "maria@g.com",
-    "localidad": "bcn",
-    "producto_que_provee": "plantines, tierra",
-    "fecha_ultimo_pedido": "2020-06-05 00:00:00",
-    "Producto que provee": "arbol"
+    "producto_que_provee": "maceta",
+    "fecha_ultimo_pedido": "2026-06-19 00:00:00"
   }
 ]

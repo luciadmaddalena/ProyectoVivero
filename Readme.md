@@ -112,3 +112,49 @@ estas funciones serian los modulos. - estos se definen siempre antes de ser llam
 
 Validaciones que necesito sí o sí Cuando ingreso un número (cantidad, precio, código), que verifique que sea un número. 
 Cuando ingreso un email, que al menos chequee que tenga @ . Cuando busco algo y no existe, que me lo diga sin romperse. Los códigos de planta, cliente, venta, proveedor y encargo tienen que ser únicos y autoincrementales. 
+
+
+
+
+
+def modificar_venta ():
+    print("--- Modificar venta ---")
+    ventas = leer_ventas()
+
+    nombre_cliente = pedir_string('Para modificar ingrese el nombre del cliente: ').lower()
+    for venta in ventas:
+        if venta['cliente_venta'] == nombre_cliente.lower():
+            print('Venta encontrada:')
+            print(venta)
+            print('¿Qué desea modificar?')
+            print("1 - Forma de pago")
+            print("2 - Total")
+            print("3 - Cliente")
+
+            opcion = input('Seleccione una opcion de venta: ').strip()
+            if opcion == "1":
+                
+               venta['forma_pago'] = input('Ingresar nueva forma de pago: ')
+
+            elif opcion == '2':
+                input("Ingrese nueva cantidad: ")
+                
+                 total = 0
+
+                 for item in venta["items"]:
+                    total += item["cantidad"] * item["precio_unit"]
+
+                 venta["total"] = total
+                 print("Total recalculado.")
+            
+            elif opcion == "3":
+                 venta["id_cliente"] = int(input("Nuevo ID de cliente: "))
+
+            else:
+                 print("Opción inválida.")
+                 return
+
+            guardar_ventas(ventas)
+            print("Venta modificada correctamente.")
+            return
+    print("No se encontró una venta con ese ID.")

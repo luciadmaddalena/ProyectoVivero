@@ -48,6 +48,7 @@ def alta_venta():
 
     #se pide el nombre del cliente relacionado con la venta
     cliente_venta = pedir_string("A que cliente corresponde? Escriba nombre completo: ")
+    
     cliente_elegido = None
     for cliente in clientes:
         if cliente_venta == cliente["nombre_completo"].lower():
@@ -64,7 +65,7 @@ def alta_venta():
     
     
     #se pide el nombre de la planta relacionada con la venta
-    planta_venta = pedir_string("Que planta compro? Escriba nombre comun")
+    planta_venta = pedir_string("Que planta compro? Escriba nombre comun: ")
     resultado_planta = []
     for planta in plantas:
         if planta_venta == planta["nombre_comun"].lower():
@@ -78,7 +79,7 @@ def alta_venta():
 
 
     cantidad = pedir_entero("Ingrese cantidad comprada: ")
-    precio_unit = pedir_float("Ingresar precio unitario:")
+    precio_unit = pedir_float("Ingresar precio unitario: ")
     total = cantidad * precio_unit
     items = [
         {"id_planta": resultado_planta[0]["id"], "cantidad": cantidad , "precio_unit": precio_unit}
@@ -140,40 +141,26 @@ def buscar_venta():
     print ('--- Buscar ventas ---')
     ventas = leer_ventas()
     clientes = leer_clientes()
-    print("Buscar por:")
-    print("1. DNI")
-    print("2. Fecha")
-    opcion_busqueda = pedir_string("Seleccione una opcion de busqueda: ")
-    
-    
-    if opcion_busqueda == "1":
-        dni = pedir_string('Ingresar DNI: ')
+   
+    print("Buscar por DNI:")
+    dni = pedir_string('Ingresar DNI: ')
+
+    id_cliente = None
+    for cliente in clientes:
+        if dni == cliente['dni'].strip():
+            id_cliente = cliente["id"]
+            break
         
-        id_cliente = None
-        for cliente in clientes:
-            if dni == cliente['dni'].strip():
-                id_cliente = cliente['id']
-                break
-        if not id_cliente:
-                print("No se encontro ningun cliente con ese DNI.")
-                return
+    if not id_cliente:
+        print("No se encontro ningun cliente con ese DNI.")
+        return
         
-        resultados = []
-        for venta in ventas:
-                if venta['id_cliente'] == id_cliente:
-                    resultados.append(venta)
-        if not resultados:
-            print("No hay ventas para ese cliente.")
-            return
-        
-    elif opcion_busqueda == "2":
-        buscar_fecha = pedir_fecha('Ingresar fecha: ')
-        resultados = []
-        for venta in ventas:
-            if buscar_fecha == venta['fecha']:
-                resultados.append(venta)
-    else:
-        print("Opcion de busqueda no valida.")
+    resultados = []
+    for venta in ventas:
+        if id_cliente == venta['id_cliente']:
+            resultados.append(venta)
+    if not resultados:
+        print("No hay ventas para ese cliente.")
         return
         
     for venta in resultados:
@@ -189,41 +176,19 @@ def modificar_venta ():
     print("--- Modificar venta ---")
     ventas = leer_ventas()
 
-    id_venta = int(input('Para modificar ingrese el ID de venta: '))
+    nombre_cliente = pedir_string('Para modificar ingrese el nombre del cliente: ').lower()
     for venta in ventas:
-        if venta['id'] == id_venta:
-            print('Venta encontrada:')
-            print(venta)
-            print('¿Qeé desea modificar?')
-            print("1 - Forma de pago")
-            print("2 - Total")
-            print("3 - Cliente")
+        if venta['cliente_venta'] == nombre_cliente.lower():
+            print('Venta encontrada. Ingrese los nuevos datos a modificar de la venta')
+            venta['items'][0]['cantidad'] = pedir_entero('Ingrese nueva cantidad: ')
+            venta['items'][0]['precio_unit'] = pedir_float('Ingresar nuevo precio: ')
+            venta['forma_pago'] = pedir_opcion('Ingresar nueva forma de pago: ', formas_pago)
+            break
+        else:
+            print("No se encontraron ventas con ese nombre.")
+    guardar_ventas(ventas)
+    print("Venta actualizada correctamente.")
 
-            opcion = input('Seleccione una opcion de venta: ').strip()
-            if opcion == "1":
-                
-               venta['forma_pago'] = input('Ingresar nueva forma de pago: ')
-
-            elif opcion == '2':
-            
-                 total = 0
-
-                 for item in venta["items"]:
-                    total += item["cantidad"] * item["precio_unit"]
-
-                 venta["total"] = total
-                 print("Total recalculado.")
-            
-            elif opcion == "3":
-                 venta["id_cliente"] = int(input("Nuevo ID de cliente: "))
-
-            else:
-                 print("Opción inválida.")
-                 return
-
-            print("Venta modificada correctamente.")
-            return
-    print("No se encontró una venta con ese ID.")
         
 
 
@@ -265,7 +230,7 @@ def menu_ventas():
         print("===== Menú de ventas ====")
         print("1. Cargar venta")
         print("2. Consultar ventas")
-        print("3. Buscar venta por DNI o fecha")#sumo fecha al parametro de busqueda
+        print("3. Buscar venta por DNI")
         print("4. Modificar datos de venta")
         print("5. Eliminar venta")
         print("9. Volver al menu principal")

@@ -1,13 +1,1 @@
-[
-  {
-    "id": 1,
-    "cliente_encargo": "lucia della m",
-    "proveedor_encargo": "ari",
-    "planta_encargo": "lavanda",
-    "descripcion": "muchas hojas",
-    "fecha_pedido": "2026-05-12 00:00:00",
-    "fecha_llegada": "2026-07-20 00:00:00",
-    "estado": "entregado",
-    "senia": 0.0
-  }
-]
+[]

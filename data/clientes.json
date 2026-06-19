@@ -1,20 +1,11 @@
 [
   {
     "id": 1,
-    "dni": "41065667",
-    "nombre_completo": "lucia della m",
-    "telefono": "789456",
-    "email": "luli@.",
-    "tipo_cliente": "particular",
-    "notas": "arboles"
-  },
-  {
-    "id": 2,
-    "dni": "336699",
-    "nombre_completo": "german lopez",
-    "telefono": "224488",
-    "email": "k@f.com",
+    "dni": "225588",
+    "nombre_completo": "susana gimenez",
+    "telefono": "123456",
+    "email": "susana@.",
     "tipo_cliente": "vivero amigo",
-    "notas": "frutales"
+    "notas": "arboles grandes"
   }
 ]

@@ -1,22 +1,22 @@
 [
   {
     "id": 1,
-    "nombre_comun": "lavanda",
-    "nombre_cientifico": "kavandius",
-    "categoria": "aromatica",
+    "nombre_comun": "mango",
+    "nombre_cientifico": "mangius",
+    "categoria": "frutal",
     "sector": "exterior",
-    "stock": -4,
-    "precio": 2500.0,
-    "cuidados": "riego fuerte"
+    "stock": 8,
+    "precio": 30000.0,
+    "cuidados": "sol directo"
   },
   {
     "id": 2,
-    "nombre_comun": "romero",
-    "nombre_cientifico": "romeruis",
-    "categoria": "aromatica",
+    "nombre_comun": "eucalipto",
+    "nombre_cientifico": "eucaliptus",
+    "categoria": "arbol",
     "sector": "exterior",
-    "stock": 50,
-    "precio": 6000.0,
-    "cuidados": "sol, riego moderdo"
+    "stock": 9,
+    "precio": 20000.0,
+    "cuidados": "sol directo"
   }
 ]

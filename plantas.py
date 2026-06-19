@@ -22,6 +22,7 @@ def guardar_plantas(datos):
     with open(NOMBRE_ARCHIVO_PLANTAS, 'wt', encoding='UTF-8') as archivo:
         json.dump(datos, archivo, ensure_ascii=False, indent=2)
 
+
 #FUNCIONES
 def alta_planta ():
     print("--- Cargar nueva planta ---")
@@ -132,7 +133,7 @@ def modificar_planta ():
         print("No hay plantas en el vivero para modificar.")
         return
     
-    nombre_comun = pedir_string('Para modificar ingrese el nombre común: ') .lower()
+    nombre_comun = pedir_string('Para modificar ingrese el nombre común: ').lower()
     for planta in plantas:
         if nombre_comun == planta['nombre_comun'].lower():
             print('Ingrese los nuevos datos de la planta')

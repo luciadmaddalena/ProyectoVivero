@@ -35,8 +35,7 @@ def main():
         else:
             print("Opcion no valida, intente de nuevo")
 
-if __name__ == "__main__":
-     main()
+main()
 
 
 

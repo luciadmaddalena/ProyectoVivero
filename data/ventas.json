@@ -1,31 +1,17 @@
 [
   {
     "id": 1,
-    "cliente_venta": "lucia della m",
-    "fecha": "2023-12-12 00:00:00",
+    "id_cliente": 1,
+    "cliente_venta": "susana gimenez",
+    "fecha": "2026-06-19 00:00:00",
     "items": [
       {
         "id_planta": 1,
-        "cantidad": 3,
-        "precio_unit": 2500.0
+        "cantidad": 2,
+        "precio_unit": 30000.0
       }
     ],
-    "total": 7500.0,
+    "total": 60000.0,
     "forma_pago": "efectivo"
-  },
-  {
-    "id": 3,
-    "id_cliente": 2,
-    "cliente_venta": "german lopez",
-    "fecha": "2026-02-02 00:00:00",
-    "items": [
-      {
-        "id_planta": 1,
-        "cantidad": 1,
-        "precio_unit": 2000.0
-      }
-    ],
-    "total": 2000.0,
-    "forma_pago": "tarjeta"
   }
 ]

@@ -110,11 +110,11 @@ def alta_encargo():
 
 
 
-    descripcion = pedir_string("Descripcion libre: ")
-    fecha_pedido = pedir_fecha("fecha de pedido: ")
+    descripcion = pedir_string("Descripción libre: ")
+    fecha_pedido = pedir_fecha("Fecha de pedido: ")
     fecha_llegada = pedir_fecha("Fecha estimada de llegada: ")
     estado = pedir_opcion("Estado de pedido: ", estado_encargo)
-    senia = pedir_float("Se;a recibida: ")
+    senia = pedir_float("Seña recibida: ")
 
     encargo = {
         "id": siguiente_id(encargos),
@@ -223,6 +223,9 @@ def actualizar_estado_encargo():
     encargo["estado"] = nuevo_estado
     guardar_encargos(encargos)
     print("Estado actualizado a: ", nuevo_estado)
+
+    #falta datos del cliente si el estado es llego
+    
 
 
     
