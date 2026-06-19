@@ -3,6 +3,7 @@ from plantas import menu_plantas
 from clientes import menu_clientes
 from ventas import menu_ventas
 from proveedores import menu_proveedores
+from encargos import menu_encargos
 
 
 def mostrar_menu():
@@ -27,8 +28,8 @@ def main():
              menu_ventas()
         elif opcion == "4":
              menu_proveedores()
- #       elif opcion == "5":
-#            menu_encargos_especiales()
+        elif opcion == "5":
+            menu_encargos()
         elif opcion == "0":
             print("Hasta luego, esperamos que vuelvas pronto")
             break
