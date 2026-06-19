@@ -60,7 +60,7 @@ def listar_planta():
         print("--------------------------------")
         return
     
-    print(-"-----------------------------")
+    print("-----------------------------")
     print("Filtrar por:")
     print("1. Ver todas")
     print("2. Categoría")
