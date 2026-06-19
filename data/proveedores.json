@@ -1,11 +1,1 @@
-[
-  {
-    "id": 1,
-    "nombre_proveedor": "pepito grillo",
-    "telefono": 123456,
-    "email": "pepe@.",
-    "localidad": "la plata",
-    "producto_que_provee": "maceta",
-    "fecha_ultimo_pedido": "2026-06-19 00:00:00"
-  }
-]
+[]

@@ -193,17 +193,17 @@ def modificar_venta ():
 
     nombre_cliente = pedir_string('Para modificar, ingrese el nombre del cliente: ').lower()
     for venta in ventas:
-        if venta['cliente_venta'] == nombre_cliente.lower():
+        if venta['cliente_venta'].lower() == nombre_cliente.lower():
             print("--------------------------------")
             print('Venta encontrada. Ingrese los nuevos datos a modificar de la venta')
             venta['items'][0]['cantidad'] = pedir_entero('Ingrese nueva cantidad: ')
             venta['items'][0]['precio_unit'] = pedir_float('Ingresar nuevo precio: ')
             venta['forma_pago'] = pedir_opcion('Ingresar nueva forma de pago: ', formas_pago)
             break
-        else:
-            print("--------------------------------")
-            print("No se encontraron ventas con ese nombre.")
-            print("--------------------------------")
+    else:
+        print("--------------------------------")
+        print("No se encontraron ventas con ese nombre.")
+        print("--------------------------------")
     guardar_ventas(ventas)
     print("--------------------------------")
     print("Venta actualizada correctamente.")
@@ -255,7 +255,9 @@ def baja_venta ():
 
 def menu_ventas():
     while True:
-        print("===== Menú de ventas ====")
+        print("=" * 25)
+        print("💰 VENTAS  ")
+        print("=" * 25)
         print("1. Cargar venta")
         print("2. Consultar ventas")
         print("3. Buscar venta por DNI")

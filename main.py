@@ -6,7 +6,10 @@ from encargos import menu_encargos
 
 
 def mostrar_menu():
-    print("==== VIVERO EL JACARANDA ====")
+    print("=" * 25)
+    print("🌿 VIVERO EL JACARANDA 🌿")
+    print("=" * 25)
+
     print("1. Stock de plantas")
     print("2. Clientes")
     print("3. Ventas")
@@ -17,7 +20,7 @@ def mostrar_menu():
 def main():
     while True:
         mostrar_menu()
-        opcion = input("Qué querés hacer?")
+        opcion = input("Qué querés hacer? ")
 
         if opcion == "1":
             menu_plantas()

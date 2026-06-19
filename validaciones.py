@@ -1,3 +1,4 @@
+#Funciones para validar y reutilizar en modulos
 from datetime import datetime 
 
 def pedir_entero(mensaje):

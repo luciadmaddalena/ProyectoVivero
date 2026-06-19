@@ -1,17 +1,10 @@
-# guardamos donde se van a almacenar los datos
-total_de_clientes = []
-total_de_ventas = []
-total_de_plantas = []
-total_de_proveedores = [] #agregue la lista de proveedores  
+# Opciones fijas para categorías y sectores
 
-
-# opciones fijas para categorias y sectores
-
-categorias = ("Arbol", "Arbusto", "Suculenta", "Aromática", "Frutal", "Ornamental", "Otro")
-sectores = ("Interior", "Exterior", "Invernadero", "Huerta")
-tipos_clientes = ("Particular", "Paisajista", "Empresa", "Vivero amigo")
-formas_pago = ("Efectivo", "Tarjeta", "Transferencia")
-producto_que_provee = ("Semillas", "Plantines", "Plantas", "Arboles","Tierra", "Macetas", "Fertilizantes", "Herramientas", "Adornos", "Otros")
-estado_encargo = ("Pedido", "Llegó", "Entregado", "Cancelado")
+categorias = ("arbol", "arbusto", "suculenta", "aromática", "frutal", "ornamental", "otro")
+sectores = ("interior", "exterior", "invernadero", "huerta")
+tipos_clientes = ("particular", "paisajista", "empresa", "vivero amigo")
+formas_pago = ("efectivo", "tarjeta", "transferencia")
+producto_que_provee = ("semillas", "plantines", "plantas", "arboles","tierra", "macetas", "fertilizantes", "herramientas", "Adornos", "Otros")
+estado_encargo = ("pedido", "llegó", "entregado", "cancelado")
 
 

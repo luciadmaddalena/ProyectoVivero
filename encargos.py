@@ -1,6 +1,6 @@
 import os, json
 from datetime import date
-from validaciones import siguiente_id, pedir_string, pedir_float, pedir_opcion, pedir_fecha, pedir_entero
+from validaciones import siguiente_id, pedir_string, pedir_float, pedir_opcion, pedir_fecha, pedir_entero, buscar_por_id
 from datos import estado_encargo
 
 
@@ -77,7 +77,7 @@ def alta_encargo():
         print("No existe ningun cliente con ese nombre.")
         return
     
-    print("Cliente encontrado:", cliente["nombre_completo"], "ID: ", cliente["id"])
+    print("Cliente encontrado:", resultados_clientes[0]["nombre_completo"], "ID: ", resultados_clientes[0]["id"])
 
     #revisar a que proveedor corresponde el pedido
     proveedor_encargo = pedir_string("A que proveedor le pedimos? Escriba nombre o razon social: ")
@@ -91,7 +91,7 @@ def alta_encargo():
         print("No existe ningun proveedor con ese nombre.")
         return
     
-    print("Proveedor encontrado:", proveedor["nombre_proveedor"], "ID: ", proveedor["id"])
+    print("Proveedor encontrado:", resultados_proveedores[0]["nombre_proveedor"], "ID: ", resultados_proveedores[0]["id"])
 
     #que planta corresponde el encargo
     planta_encargo = pedir_string("Que planta esta pidiendo? Escriba nombre comun: ")
@@ -105,7 +105,7 @@ def alta_encargo():
         print("No existe ninguna planta con ese nombre.")
         return
     
-    print("Planta encontrada:", planta["nombre_comun"], "ID: ", planta["id"])
+    print("Planta encontrada:", resultados_plantas[0]["nombre_comun"], "ID: ", resultados_plantas[0]["id"])
 
 
 
@@ -118,8 +118,10 @@ def alta_encargo():
 
     encargo = {
         "id": siguiente_id(encargos),
+        "id_cliente": resultados_clientes[0]["id"],
         "cliente_encargo": cliente_encargo,
         "proveedor_encargo": proveedor_encargo,
+        "id_proveedor": resultados_proveedores[0]["id"],
         "planta_encargo": planta_encargo,
         "descripcion": descripcion,
         "fecha_pedido": str(fecha_pedido),
@@ -135,8 +137,8 @@ def alta_encargo():
 
 def listar_encargos_activos():
     encargos = leer_encargos()
-    #clientes = leer_clientes()
-    #proveedores = leer_proveedores()
+    clientes = leer_clientes()
+    proveedores = leer_proveedores()
 
     activos = []
     for encargo in encargos:
@@ -147,13 +149,23 @@ def listar_encargos_activos():
         print("No hay encargos activos.")
         return
     
-    print(f"Encargos activos: {[activos]}")
+    for encargo in activos:
+        cliente = buscar_por_id(clientes, encargo["id_cliente"])
+        proveedor = buscar_por_id(proveedores, encargo["id_proveedor"])
+        print("--------------------------------")
+        print(f"ID: {encargo['id']}")
+        print(f"Cliente: {cliente['nombre_completo']}")
+        print(f"Proveedor: {proveedor['nombre_proveedor']}")
+        print(f"Descripción: {encargo['descripcion']}")
+        print(f"Estado: {encargo['estado']}")
+        print(f"Llega: {encargo['fecha_llegada']}")
+        print("--------------------------------")
+
 
 def buscar_encargo():
     print("--- Buscar encargo---")
     encargos = leer_encargos()
-    #clientes = leer_clientes()
-    #proveedores = leer_proveedores()
+
 
     if not encargos:
         print("No hay encargos registrados")
@@ -169,16 +181,32 @@ def buscar_encargo():
 
     if opcion == "1":
         nombre_cliente = pedir_string("Nombre del cliente: ")
+        clientes = leer_clientes()
+
         for encargo in encargos:
-            if nombre_cliente == encargo["cliente_encargo"]:
+            cliente_encontrado = None
+            for cliente in clientes:
+                if cliente["id"] == encargo["id_cliente"]:
+                    cliente_encontrado = cliente
+                    break
+            if cliente_encontrado and nombre_cliente in cliente["nombre_completo"].lower():
                 resultados.append(encargo)
+    
     elif opcion == "2":
         nombre_proveedor = pedir_string("Nombre o razon social de proveedor: ")
+        proveedores = leer_proveedores()
+
         for encargo in encargos:
-            if nombre_proveedor == encargo["proveedor_encargo"]:
+            proveedor_encontrado = None
+            for proveedor in proveedores:
+                if proveedor["id"] == encargo["id_proveedor"]:
+                    proveedor_encontrado = proveedor
+                    break
+            if proveedor_encontrado and nombre_proveedor in proveedor["nombre_proveedor"]:
                 resultados.append(encargo)
+    
     elif opcion == "3":
-        fecha = pedir_fecha("Fecha del pedido: ")
+        fecha = str(pedir_fecha("Fecha del pedido: "))
         for encargo in encargos:
             if fecha == encargo["fecha_pedido"]:
                 resultados.append(encargo)
@@ -192,14 +220,15 @@ def buscar_encargo():
     
     for encargo in resultados:
         print(f"ID: {encargo['id']}") 
-        print(f"cliente encargo: {encargo['cliente_encargo']}")
-        print(f"proveedor encargo: {encargo['proveedor_encargo']}")
-        print(f"planta encargo: {encargo['planta_encargo']}")
-        print(f"descripcion: {encargo['descripcion']}")
-        print(f"fecha pedido: {encargo['fecha_pedido']}")
-        print(f"fecha llegada: {encargo['fecha_llegada']}")
-        print(f"estado: {encargo['estado']}")
-        print(f"senia: {encargo['senia']}")
+        print(f"Cliente encargo: {encargo['cliente_encargo']}")
+        print(f"Proveedor encargo: {encargo['proveedor_encargo']}")
+        print(f"Planta encargo: {encargo['planta_encargo']}")
+        print(f"Descripción: {encargo['descripcion']}")
+        print(f"Fecha pedido: {encargo['fecha_pedido']}")
+        print(f"Fecha llegada: {encargo['fecha_llegada']}")
+        print(f"Estado del pedido: {encargo['estado']}")
+        print(f"Seña: {encargo['senia']}")
+        print("---------------------------------------")
         
 
 def actualizar_estado_encargo():
@@ -210,41 +239,68 @@ def actualizar_estado_encargo():
     if not encargos:
         print("No hay encargos registrados")
         return
-    
-    
+
     id_encargo = pedir_entero("ID del encargo a actualizar: ")
-    resultado = []
-    for encargo in encargos:
-        if id_encargo == encargo["id"]:
-            resultado.append(encargo)
-    
+    encargo = buscar_por_id(encargos, id_encargo)
+
+    if not encargo:
+        print("No existe ningún encargo con ese ID.")
+        return
+
     print("Estado actual: ", encargo["estado"])
     nuevo_estado = pedir_opcion("Nuevo estado: ", estado_encargo)
     encargo["estado"] = nuevo_estado
     guardar_encargos(encargos)
     print("Estado actualizado a: ", nuevo_estado)
 
-    #falta datos del cliente si el estado es llego
-    
+    if nuevo_estado == "llegó":
+        cliente = buscar_por_id(clientes, encargo["id_cliente"])
+        if cliente:
+            print(" ¡El encargo llegó! Datos del cliente para avisar:")
+            print("   Nombre:", cliente["nombre_completo"])
+            print("   Teléfono:", cliente["telefono"])
+
 
 
     
 
 
 def baja_encargo():
+    print("--- Cancelar encargo ---")
     encargos = leer_encargos()
-    nombre_cliente = input("Para dar de baja ingrese el nombre del cliente: ")
-    for encargo in encargos:
-        if nombre_cliente == encargo["cliente_encargo"]:
-            encargos.remove(encargo)
-            break
-    guardar_encargos(encargos)
-    #falta confirmacion
+    if not encargos:
+        print("No hay encargos registrados para dar de baja.")
+        return
+
+    id_encargo = pedir_entero('Para dar de baja ingrese el ID del encargo: ')
+    encargo_encontrado = buscar_por_id(encargos, id_encargo)
+
+    if not encargo_encontrado:
+        print("--------------------------------")
+        print("No se encontró ningún encargo con ese ID.")
+        print("--------------------------------")
+        return
+
+    print(f"Encargo a eliminar: {encargo_encontrado['descripcion']}")
+    confirmar = pedir_string("¿Confirma que desea eliminar este encargo? (s/n): ")
+
+    if confirmar == "s":
+        encargos.remove(encargo_encontrado)
+        guardar_encargos(encargos)
+        print("--------------------------------")
+        print(f"El encargo '{encargo_encontrado['descripcion']}' ha sido eliminado.")
+        print("--------------------------------")
+    else:
+        print("--------------------------------")
+        print("Operación cancelada. El encargo no ha sido eliminado.")
+        print("--------------------------------")
 
 
 def menu_encargos():
     while True: 
-        print("==== ENCARGOS ESPECIALES ====")
+        print("=" * 25)
+        print("📋 ENCARGOS ESPECIALES 📋")
+        print("=" * 25)
         print("1. Cargar una encargo nuevo")
         print("2. Listar encargos activos")
         print("3. Buscar encargo")

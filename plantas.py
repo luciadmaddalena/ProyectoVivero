@@ -208,7 +208,9 @@ def baja_planta ():
 
 def menu_plantas():
     while True: 
-        print("==== STOCK DE PLANTAS ====")
+        print("=" * 25)
+        print(" 🪴 STOCK DE PLANTAS  ")
+        print("=" * 25)
         print("1. Cargar una planta nueva")
         print("2. Ver listado de plantas")
         print("3. Buscar una planta")

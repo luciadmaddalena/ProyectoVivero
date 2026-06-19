@@ -215,7 +215,9 @@ def baja_proveedor():
 
 def menu_proveedores():
     while True:
-        print("=====  Proveedores  ====")
+        print("=" * 25)
+        print("🌾 PROVEEDORES ")
+        print("=" * 25)
         print("1. Cargar proveedor")
         print("2. Listar proveedores")
         print("3. Buscar proveedores por nombre o producto que provée")

@@ -165,7 +165,10 @@ def baja_cliente():
 
 def menu_clientes():
     while True:
-        print("=====  Clientes  ====")
+        print("=" * 25)
+        print("👥 CLIENTES")
+        print("=" * 25)
+
         print("1. Cargar cliente")
         print("2. Listar clientes")
         print("3. Buscar cientes por DNI o nombre")
