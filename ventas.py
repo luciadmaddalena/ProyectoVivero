@@ -48,7 +48,7 @@ def alta_venta():
 
     #se pide el nombre del cliente relacionado con la venta
     cliente_venta = pedir_string("A que cliente corresponde? Escriba nombre completo: ")
-    cliente_elegido = none
+    cliente_elegido = None
     for cliente in clientes:
         if cliente_venta == cliente["nombre_completo"].lower():
             cliente_elegido = cliente 
@@ -57,7 +57,7 @@ def alta_venta():
     if not cliente_elegido:
         print("No existe ningun cliente con ese nombre.")
         return
-    print("Cliente encontrado:", cliente["nombre_completo"], "ID: ", cliente["id"], "DNI: ", ["dni"])
+    print("Cliente encontrado:", cliente_elegido["nombre_completo"], "ID: ", cliente_elegido["id"], "DNI: ", cliente_elegido["dni"])
 
     
     fecha = pedir_fecha('Ingresar fecha: ')
@@ -74,14 +74,14 @@ def alta_venta():
         print("No existe ninguna planta con ese nombre.")
         return
     
-    print("Planta encontrada:", planta["nombre_comun"], "ID: ", planta["id"], "Stock: ", planta["stock"])
+    print("Planta encontrada:", resultado_planta[0]["nombre_comun"], "ID: ", resultado_planta[0]["id"], "Stock: ", resultado_planta[0]["stock"])
 
 
     cantidad = pedir_entero("Ingrese cantidad comprada: ")
     precio_unit = pedir_float("Ingresar precio unitario:")
     total = cantidad * precio_unit
     items = [
-        {"id_planta": planta["id"], "cantidad": cantidad , "precio_unit": precio_unit}
+        {"id_planta": resultado_planta[0]["id"], "cantidad": cantidad , "precio_unit": precio_unit}
     ]
     
     forma_pago = pedir_opcion('Ingresar forma de pago: ', formas_pago)
@@ -89,7 +89,8 @@ def alta_venta():
     
     venta = {
          "id": siguiente_id(ventas),
-         "cliente_venta": cliente_venta,
+         "id_cliente": cliente_elegido["id"],#agrego cliente_elegido para buscar por dni 
+         "cliente_venta": cliente_elegido["nombre_completo"], #
          "fecha": str(fecha),
          "items": items,
          "total": total,
@@ -108,10 +109,10 @@ def alta_venta():
             id_planta = item["id_planta"]
             cantidad = item["cantidad"]
 
-        for planta in plantas:
-            if planta["id"] == id_planta:
-                planta["stock"] -= cantidad
-                break
+            for planta in plantas:
+              if planta["id"] == id_planta:
+                 planta["stock"] -= cantidad
+                 break
         guardar_plantas(plantas)
 
     descontar_stock(items, plantas)
@@ -237,12 +238,12 @@ def baja_venta ():
     id_venta = int(input('Para dar de baja ingrese el ID de la venta: '))
     
     venta_encontrada = None
-    for venta in total_de_ventas:
+    for venta in ventas:#ventas? / estaba total_de_ventas 
         if venta['id'] == id_venta:
             venta_encontrada = venta
             break
 
-    if not venta_encontrada:
+    if not venta_encontrada:#ventas?
         print("No se encontro ninguna venta con ese ID.")
         return
     
@@ -252,18 +253,19 @@ def baja_venta ():
  
 
     if confirmar == "s":
-        total_de_ventas.remove(venta_encontrada)
+        ventas.remove(venta_encontrada)
+        guardar_ventas(ventas) #para actualizar el jsan
         print(f"La venta '{venta_encontrada['id']}' ha sido eliminada.")
     else:
         print("Operacion cancelada. La venta no ha sido eliminada.")
-    guardar_ventas(ventas)
+    
 
 def menu_ventas():
     while True:
         print("===== Menú de ventas ====")
         print("1. Cargar venta")
         print("2. Consultar ventas")
-        print("3. Buscar venta por DNI")
+        print("3. Buscar venta por DNI o fecha")#sumo fecha al parametro de busqueda
         print("4. Modificar datos de venta")
         print("5. Eliminar venta")
         print("9. Volver al menu principal")

@@ -5,8 +5,18 @@
     "nombre_cientifico": "kavandius",
     "categoria": "aromatica",
     "sector": "exterior",
-    "stock": 2,
+    "stock": -4,
     "precio": 2500.0,
     "cuidados": "riego fuerte"
+  },
+  {
+    "id": 2,
+    "nombre_comun": "romero",
+    "nombre_cientifico": "romeruis",
+    "categoria": "aromatica",
+    "sector": "exterior",
+    "stock": 50,
+    "precio": 6000.0,
+    "cuidados": "sol, riego moderdo"
   }
 ]
