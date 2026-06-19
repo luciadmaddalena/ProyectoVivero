@@ -1,7 +1,8 @@
 
 
-from datos import total_de_ventas , formas_pago, total_de_plantas
+from datos import total_de_ventas , formas_pago, total_de_plantas, total_de_clientes
 from validaciones import pedir_entero, pedir_float, pedir_string, pedir_opcion, buscar_por_id, siguiente_id, pedir_fecha 
+
 
 def alta_venta():
     print("--- Registrar nueva venta ---")
@@ -64,7 +65,7 @@ def consultar_ventas():
             print(f"Forma de pago: {venta['forma_pago']}")
             print("-----------------------------")
 
-from clientes import clientes
+
 def buscar_venta_por_dni():
     print ('--- Buscar ventas por DNI ---')
 
@@ -74,7 +75,7 @@ def buscar_venta_por_dni():
 
     id_cliente = None
 
-    for cliente in cliente:
+    for cliente in total_de_clientes:
         if cliente['dni'] == dni:
             id_cliente = cliente['id']
             break
@@ -138,7 +139,7 @@ def modificar_venta ():
 
             print("Venta modificada correctamente.")
             return
-print("No se encontró una venta con ese ID.")
+    print("No se encontró una venta con ese ID.")
         
 
 

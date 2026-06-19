@@ -1,5 +1,7 @@
-#PROVEEDORES (dama)
-#PROVEEDORES (dama)
+#revisar modificaciones de proveedores
+#revisar que pasa cuando tiene el mismo nombre
+#revisar la fecha que se carga 
+
 
 
 from validaciones import pedir_string, pedir_entero, pedir_email , pedir_fecha, siguiente_id
@@ -52,11 +54,11 @@ def listar_proveedores():
 
     resultados = []
     if opcion_filtro == "2":
-        nombre_proveedor = pedir_string('Ingresar nombre: ', nombre_proveedor)
-        resultados = [proveedor for proveedor in total_de_proveedores if proveedor['nombre_proveedor'] == nombre_proveedor]
+        nombre_buscado = pedir_string('Ingresar nombre: ')
+        resultados = [proveedor for proveedor in total_de_proveedores if proveedor['nombre_proveedor'] == nombre_buscado]
     elif opcion_filtro == "3":
-        producto_que_provee = pedir_string('Ingresar producto: ', producto_que_provee)
-        resultados = [proveedor for proveedor in total_de_proveedores if proveedor['producto_que_provee'] == producto_que_provee]
+        producto_buscado = pedir_string('Ingresar producto: ')
+        resultados = [proveedor for proveedor in total_de_proveedores if proveedor['producto_que_provee'] == producto_buscado]
     else:
         resultados = total_de_proveedores
 
@@ -106,14 +108,18 @@ def buscar_proveedor():
     
     if not resultados:
         print("--------------------------------")
-        print("No se encontraron proveedores que coincidan con el filtro seleccionado.")
+        print("No se encontraron proveedores que coincidan.")
         print("--------------------------------")
 
     for proveedor in resultados:
         print("--------------------------------")
         print(f"ID: {proveedor['id']}")
         print(f"Nombre del proveedor: {proveedor['nombre_proveedor']}")
+        print(f"Teléfono: {proveedor['telefono']}")
+        print(f"Email: {proveedor['email']}")
+        print(f"Localidad: {proveedor['localidad']}")
         print(f"Producto que provee: {proveedor['producto_que_provee']}")
+        print(f"Fecha del último pedido: {proveedor['fecha_ultimo_pedido']}")
         print("--------------------------------")
 
 
@@ -135,7 +141,10 @@ def modificar_proveedor():
         proveedor["email"] = pedir_email("Ingrese el nuevo email:")
         proveedor["Producto que provee"] = pedir_string("Ingrese o modifique el nuevo producto: ")
 #sumar mensaje de confirmacion de que se modifico el proveedor 
-
+        print("--------------------------------")
+        print(f"Los datos del proveedor se actualizaron")
+        print("--------------------------------")
+        
 
 def baja_proveedor():
     print("--- Eliminar proveedor ---")
@@ -149,7 +158,7 @@ def baja_proveedor():
 
     proveedor_encontrado = None
     for proveedor in total_de_proveedores:
-     if proveedor["nombre_proveedor"] == nombre_proveedor:
+     if proveedor["nombre_proveedor"].lower() == nombre_proveedor.lower():
         proveedor_encontrado = proveedor
         break
      
@@ -157,6 +166,7 @@ def baja_proveedor():
         print("--------------------------------")
         print (f"No se encontró un proveedor con el nombre '{nombre_proveedor}'.")
         print("--------------------------------")
+        return
 
     print(f"Proveedor a eliminar: {proveedor_encontrado["nombre_proveedor"]}")
     confirmar = input("Confirma que desea eliminar este proveedor? (s/n): ").lower().strip()

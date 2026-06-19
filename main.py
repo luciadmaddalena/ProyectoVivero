@@ -1,3 +1,4 @@
+
 from plantas import menu_plantas
 from clientes import menu_clientes
 from ventas import menu_ventas
@@ -33,6 +34,9 @@ def main():
             break
         else:
             print("Opcion no valida, intente de nuevo")
+
+if __name__ == "__main__":
+     main()
 
 
 
