@@ -1,8 +1,31 @@
+import os, json
 from datos import total_de_plantas , categorias, sectores
 from validaciones import pedir_entero, pedir_float, pedir_string, pedir_opcion, siguiente_id
 
+
+NOMBRE_ARCHIVO_PLANTAS = os.path.join('data', 'plantas.json')
+
+
+#ARCHIVOS
+def leer_plantas():
+    #leer datos de un json
+    ##para ver si un archivo existe
+    if os.path.exists(NOMBRE_ARCHIVO_PLANTAS):
+        with open(NOMBRE_ARCHIVO_PLANTAS, 'rt', encoding='UTF-8') as archivo:
+            datos = json.load(archivo)
+            return datos
+    else:
+        return[]
+    
+def guardar_plantas(datos):
+    #guardar datos en un json
+    with open(NOMBRE_ARCHIVO_PLANTAS, 'wt', encoding='UTF-8') as archivo:
+        json.dump(datos, archivo, ensure_ascii=False, indent=2)
+
+#FUNCIONES
 def alta_planta ():
     print("--- Cargar nueva planta ---")
+    plantas = leer_plantas
     nombre_comun = pedir_string('Ingresar nombre comun: ')
     nombre_cientifico = pedir_string('Ingresar nombre cientifico: ')
     categoria = pedir_opcion('Ingresar categoria: ', categorias)
@@ -12,7 +35,7 @@ def alta_planta ():
     cuidados = pedir_string('Ingresar cuidados: ')
 
     planta = {
-         "id": siguiente_id(total_de_plantas),
+         "id": siguiente_id(plantas),
          "nombre_comun": nombre_comun,
          "nombre_cientifico": nombre_cientifico,
          "categoria": categoria,
@@ -21,12 +44,14 @@ def alta_planta ():
          "precio": precio,
          "cuidados": cuidados
     }
-    total_de_plantas.append(planta)
+    plantas.append(planta)
+    guardar_plantas(plantas)
     print(f"La planta '{nombre_comun}' ha sido agregada al stock con ID {planta['id']}.")
 
 def listar_planta():
     print("--- Listado de plantas ---")
-    if not total_de_plantas:
+    plantas = leer_plantas
+    if not plantas:
         print("No hay plantas en el vivero para mostrar.")
         return
     
@@ -39,12 +64,12 @@ def listar_planta():
     resultados = []
     if opcion_filtro == "2":
         categoria = pedir_opcion('Ingresar categoria: ', categorias)
-        resultados = [planta for planta in total_de_plantas if planta['categoria'] == categoria]
+        resultados = [planta for planta in plantas if planta['categoria'] == categoria]
     elif opcion_filtro == "3":
         sector = pedir_opcion('Ingresar sector: ', sectores)
-        resultados = [planta for planta in total_de_plantas if planta['sector'] == sector]
+        resultados = [planta for planta in plantas if planta['sector'] == sector]
     else:
-        resultados = total_de_plantas
+        resultados = plantas
 
     if not resultados:
         print("No se encontraron plantas que coincidan con el filtro seleccionado.")
@@ -65,7 +90,8 @@ def listar_planta():
 
 def buscar_planta ():
     print("--- Buscar planta ---")
-    if not total_de_plantas:
+    plantas = leer_plantas
+    if not plantas:
         print("No hay plantas en el vivero para buscar.")
         return
 
@@ -73,7 +99,7 @@ def buscar_planta ():
     termino = input('Ingrese el nombre comun o cientifico de la planta a buscar: ').lower()
 
     resultados = []
-    for planta in total_de_plantas:
+    for planta in plantas:
         if termino in planta['nombre_comun'].lower() or termino in planta['nombre_cientifico'].lower():
             resultados.append(planta)
 
@@ -96,14 +122,16 @@ def buscar_planta ():
 
 def modificar_planta ():
     print("--- Modificar planta ---")
+    plantas = leer_plantas
     nombre_comun = input('Para modificar ingrese el nombre comun: ') .lower()
-    for planta in total_de_plantas:
+    for planta in plantas:
         if nombre_comun == planta['nombre_comun']:
             print('Ingrese los nuevos datos de la planta')
             planta['sector'] = input('Ingresar sector: ')
             planta['stock'] = int(input('Ingresar stock: '))
             planta['precio'] = float(input('Ingresar precio: '))
             planta['cuidados'] = input('Ingresar cuidados: ')
+    #falta guardar cambios en plantas
 
 
 def baja_planta ():

@@ -1,5 +1,4 @@
 # guardamos donde se van a almacenar los datos
-total_de_plantas = []
 total_de_clientes = []
 total_de_ventas = []
 total_de_proveedores = [] #agregue la lista de proveedores  

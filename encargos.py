@@ -236,6 +236,7 @@ def baja_encargo():
             encargos.remove(encargo)
             break
     guardar_encargos(encargos)
+    #falta confirmacion
 
 
 def menu_encargos():
@@ -264,5 +265,3 @@ def menu_encargos():
             break
         else:
             print("Opcion no valida, intente de nuevo")
-
-menu_encargos() 
