@@ -70,7 +70,7 @@ def alta_encargo():
 
     resultados_clientes = []
     for cliente in clientes:
-        if cliente_encargo in clientes["nombre_completo"].lower():
+        if cliente_encargo == cliente["nombre_completo"].lower():
             resultados_clientes.append(cliente)
     
     if not resultados_clientes:
@@ -84,21 +84,21 @@ def alta_encargo():
     
     resultados_proveedores = []
     for proveedor in proveedores:
-        if proveedor_encargo in proveedores["nombre_provee"].lower():
+        if proveedor_encargo == proveedor["nombre_proveedor"].lower():
             resultados_proveedores.append(proveedor)
     
     if not resultados_proveedores:
         print("No existe ningun proveedor con ese nombre.")
         return
     
-    print("Proveedor encontrado:", proveedor["nombre_provee"], "ID: ", proveedor["id"])
+    print("Proveedor encontrado:", proveedor["nombre_proveedor"], "ID: ", proveedor["id"])
 
     #que planta corresponde el encargo
     planta_encargo = pedir_string("Que planta esta pidiendo? Escriba nombre comun: ")
 
     resultados_plantas = []
     for planta in plantas:
-        if planta_encargo in plantas["nombre_comun"].lower():
+        if planta_encargo == planta["nombre_comun"].lower():
             resultados_plantas.append(planta)
     
     if not resultados_plantas:
@@ -113,7 +113,7 @@ def alta_encargo():
     descripcion = pedir_string("Descripcion libre: ")
     fecha_pedido = pedir_fecha("fecha de pedido: ")
     fecha_llegada = pedir_fecha("Fecha estimada de llegada: ")
-    estado = pedir_opcion("Estado de pedido", estado_encargo)
+    estado = pedir_opcion("Estado de pedido: ", estado_encargo)
     senia = pedir_float("Se;a recibida: ")
 
     encargo = {
@@ -122,8 +122,8 @@ def alta_encargo():
         "proveedor_encargo": proveedor_encargo,
         "planta_encargo": planta_encargo,
         "descripcion": descripcion,
-        "fecha_pedido": fecha_pedido,
-        "fecha_llegada": fecha_llegada,
+        "fecha_pedido": str(fecha_pedido),
+        "fecha_llegada": str(fecha_llegada),
         "estado": estado,
         "senia": senia,
     }
@@ -162,22 +162,22 @@ def buscar_encargo():
     print("Buscar por:")
     print("1. Cliente")
     print("2. Proveedor")
-    print ("3. Fecha de pedido")
+    print("3. Fecha de pedido")
     opcion = input("Opcion: ").strip()
 
     resultados = []
 
-    if opcion == 1:
+    if opcion == "1":
         nombre_cliente = pedir_string("Nombre del cliente: ")
         for encargo in encargos:
-            if nombre_cliente in encargos["cliente_encargo"].lower():
+            if nombre_cliente == encargo["cliente_encargo"]:
                 resultados.append(encargo)
-    elif opcion == 2:
+    elif opcion == "2":
         nombre_proveedor = pedir_string("Nombre o razon social de proveedor: ")
         for encargo in encargos:
-            if nombre_proveedor in encargos["proveedor_encargo"].lower():
+            if nombre_proveedor == encargo["proveedor_encargo"]:
                 resultados.append(encargo)
-    elif opcion == 3:
+    elif opcion == "3":
         fecha = pedir_fecha("Fecha del pedido: ")
         for encargo in encargos:
             if fecha == encargo["fecha_pedido"]:

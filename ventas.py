@@ -1,62 +1,130 @@
+import os, json
+from datos import formas_pago
+from validaciones import pedir_entero, pedir_float, pedir_string, pedir_opcion, siguiente_id, pedir_fecha 
+
+NOMBRE_ARCHIVO_VENTAS = os.path.join('data', 'ventas.json')
+NOMBRE_ARCHIVO_CLIENTES = os.path.join('data', 'clientes.json')
+NOMBRE_ARCHIVO_PLANTAS = os.path.join('data', 'plantas.json')
 
 
-from datos import total_de_ventas , formas_pago, total_de_plantas, total_de_clientes
-from validaciones import pedir_entero, pedir_float, pedir_string, pedir_opcion, buscar_por_id, siguiente_id, pedir_fecha 
+#ARCHIVOS
+def leer_ventas():
+    if os.path.exists(NOMBRE_ARCHIVO_VENTAS):
+        with open(NOMBRE_ARCHIVO_VENTAS, 'rt', encoding='UTF-8') as archivo:
+            datos = json.load(archivo)
+            return datos
+    else:
+        return[]
+    
+def guardar_ventas(datos):
+    #guardar datos en un json
+    with open(NOMBRE_ARCHIVO_VENTAS, 'wt', encoding='UTF-8') as archivo:
+        json.dump(datos, archivo, ensure_ascii=False, indent=2)
+
+#para relacionarlo con el json de clientes
+def leer_clientes():
+    if os.path.exists(NOMBRE_ARCHIVO_CLIENTES):
+        with open(NOMBRE_ARCHIVO_CLIENTES, 'rt', encoding='UTF-8') as archivo:
+            return json.load(archivo)
+    return []
+#para relacionarlo con el json de plantas
+def leer_plantas():
+    if os.path.exists(NOMBRE_ARCHIVO_PLANTAS):
+        with open(NOMBRE_ARCHIVO_PLANTAS, 'rt', encoding='UTF-8') as archivo:
+            return json.load(archivo)
+    return []
+#para modificar el stock de plantas en json
+def guardar_plantas(datos):
+    with open(NOMBRE_ARCHIVO_PLANTAS, 'wt', encoding='UTF-8') as archivo:
+        json.dump(datos, archivo, ensure_ascii=False, indent=2)
 
 
+#FUNCIONES
 def alta_venta():
     print("--- Registrar nueva venta ---")
-    id_cliente = pedir_entero('Ingresar ID del cliente: ')
-    fecha = pedir_string('Ingresar fecha: ')
+    ventas = leer_ventas()
+    clientes = leer_clientes()
+    plantas = leer_plantas()
+
+    #se pide el nombre del cliente relacionado con la venta
+    cliente_venta = pedir_string("A que cliente corresponde? Escriba nombre completo: ")
+    resultado_cliente = []
+    for cliente in clientes:
+        if cliente_venta == cliente["nombre_completo"].lower():
+            resultado_cliente.append(cliente)
+    
+    if not resultado_cliente:
+        print("No existe ningun cliente con ese nombre.")
+        return
+    print("Cliente encontrado:", cliente["nombre_completo"], "ID: ", cliente["id"], "DNI: ", ["dni"])
+
+    
+    fecha = pedir_fecha('Ingresar fecha: ')
+    
+    
+    #se pide el nombre de la planta relacionada con la venta
+    planta_venta = pedir_string("Que planta compro? Escriba nombre comun")
+    resultado_planta = []
+    for planta in plantas:
+        if planta_venta == planta["nombre_comun"].lower():
+            resultado_planta.append(planta)
+    
+    if not resultado_planta:
+        print("No existe ninguna planta con ese nombre.")
+        return
+    
+    print("Planta encontrada:", planta["nombre_comun"], "ID: ", planta["id"], "Stock: ", planta["stock"])
+
+
+    cantidad = pedir_entero("Ingrese cantidad comprada: ")
+    precio_unit = pedir_float("Ingresar precio unitario:")
+    total = cantidad * precio_unit
+    items = [
+        {"id_planta": planta["id"], "cantidad": cantidad , "precio_unit": precio_unit}
+    ]
+    
     forma_pago = pedir_opcion('Ingresar forma de pago: ', formas_pago)
 
-    id_planta = pedir_entero('Ingresar ID de planta: ')
-    cantidad = pedir_entero('Ingresar cantidad: ')
-    precio_unit = pedir_float('Ingresar precio unitario: ')
-
-    items = [
-        {
-            'id_planta': id_planta,
-            'cantidad': cantidad,
-            'precio_unit': precio_unit
-        }
-    ] 
-    total = cantidad * precio_unit  
-
+    
     venta = {
-         "id": siguiente_id(total_de_ventas),
-         "id_cliente": id_cliente,
-         "fecha": fecha,
+         "id": siguiente_id(ventas),
+         "cliente_venta": cliente_venta,
+         "fecha": str(fecha),
          "items": items,
          "total": total,
          "forma_pago": forma_pago
     }
         
-    total_de_ventas.append(venta)
-    descontar_stock(items)
+    ventas.append(venta)
+    guardar_ventas(ventas)
     print(f"La venta N° {venta['id']} ha sido registrada.")
 
-#cuando se registra una venta, el stock de cada planta vendida tiene que
-#descontarse automáticamente.
+    #cuando se registra una venta, el stock de cada planta vendida tiene que
+    #descontarse automáticamente.
 
-def descontar_stock(items):
-    for item in items:
-        id_planta = item["id_planta"]
-        cantidad = item["cantidad"]
+    def descontar_stock(items, plantas):
+        for item in items:
+            id_planta = item["id_planta"]
+            cantidad = item["cantidad"]
 
-        for planta in total_de_plantas:
+        for planta in plantas:
             if planta["id"] == id_planta:
                 planta["stock"] -= cantidad
                 break
+        guardar_plantas(plantas)
+
+    descontar_stock(items, plantas)
                 
 
-def consultar_ventas():
+
+def listar_ventas():
     print ("--- Lista de ventas ---")
-    if not total_de_ventas:
+    ventas = leer_ventas()
+    if not ventas:
         print("No hay ventas registradas.")
         return
 
-    for venta in total_de_ventas:
+    for venta in ventas:
             print(f"ID: {venta['id']}")
             print(f"ID Cliente: {venta['id_cliente']}")
             print(f"Fecha: {venta['fecha']}")
@@ -66,36 +134,46 @@ def consultar_ventas():
             print("-----------------------------")
 
 
-def buscar_venta_por_dni():
-    print ('--- Buscar ventas por DNI ---')
-
-    dni = input('Ingrese DNI del cliente: ')
-
-    # buscar id_cliente
-
-    id_cliente = None
-
-    for cliente in total_de_clientes:
-        if cliente['dni'] == dni:
-            id_cliente = cliente['id']
-            break
-
-    if not id_cliente:
-        print("No se encontro ningun cliente con ese DNI.")
-        return
-
-    # buscar ventas
-
-    resultados = []
-    for venta in total_de_ventas:
-        if venta['id_cliente'] == id_cliente:
-            resultados.append(venta)
-
-    if not resultados:
-       print ('No hay ventas para ese cliente.')
-       return
-    # mostrar los resultados
+def buscar_venta():
+    print ('--- Buscar ventas ---')
+    ventas = leer_ventas()
+    clientes = leer_clientes()
+    print("Buscar por:")
+    print("1. DNI")
+    print("2. Fecha")
+    opcion_busqueda = pedir_string("Seleccione una opcion de busqueda: ")
     
+    
+    if opcion_busqueda == "1":
+        dni = pedir_string('Ingresar DNI: ')
+        
+        id_cliente = None
+        for cliente in clientes:
+            if dni == cliente['dni'].strip():
+                id_cliente = cliente['id']
+                break
+        if not id_cliente:
+                print("No se encontro ningun cliente con ese DNI.")
+                return
+        
+        resultados = []
+        for venta in ventas:
+                if venta['id_cliente'] == id_cliente:
+                    resultados.append(venta)
+        if not resultados:
+            print("No hay ventas para ese cliente.")
+            return
+        
+    elif opcion_busqueda == "2":
+        buscar_fecha = pedir_fecha('Ingresar fecha: ')
+        resultados = []
+        for venta in ventas:
+            if buscar_fecha == venta['fecha']:
+                resultados.append(venta)
+    else:
+        print("Opcion de busqueda no valida.")
+        return
+        
     for venta in resultados:
             print(f"ID venta: {venta['id']}")
             print(f"Fecha: {venta['fecha']}")
@@ -103,14 +181,18 @@ def buscar_venta_por_dni():
             print(f"Forma de pago: {venta['forma_pago']}")
             print("-----------------------------")
 
+
+
 def modificar_venta ():
     print("--- Modificar venta ---")
+    ventas = leer_ventas()
+
     id_venta = int(input('Para modificar ingrese el ID de venta: '))
-    for venta in total_de_ventas:
+    for venta in ventas:
         if venta['id'] == id_venta:
             print('Venta encontrada:')
             print(venta)
-            print('¿QUé desea modificar?')
+            print('¿Qeé desea modificar?')
             print("1 - Forma de pago")
             print("2 - Total")
             print("3 - Cliente")
@@ -145,7 +227,9 @@ def modificar_venta ():
 
 def baja_venta ():
     print("--- Dar de baja una venta ---")
-    if not total_de_ventas:
+    ventas = leer_ventas()
+
+    if not ventas:
         print("No hay ventas en el vivero para dar de baja.")
         return
     
@@ -171,6 +255,7 @@ def baja_venta ():
         print(f"La venta '{venta_encontrada['id']}' ha sido eliminada.")
     else:
         print("Operacion cancelada. La venta no ha sido eliminada.")
+    guardar_ventas(ventas)
 
 def menu_ventas():
     while True:
@@ -187,9 +272,9 @@ def menu_ventas():
         if opcion == "1":
             alta_venta()
         elif opcion == "2":
-            consultar_ventas()
+            listar_ventas()
         elif opcion == "3":
-             buscar_venta_por_dni()
+             buscar_venta()
         elif opcion == "4":
              modificar_venta()
         elif opcion == "5":

@@ -1,1 +1,11 @@
-[]
+[
+  {
+    "id": 1,
+    "dni": "41065667",
+    "nombre_completo": "lucia della m",
+    "telefono": "789456",
+    "email": "luli@.",
+    "tipo_cliente": "particular",
+    "notas": "arboles"
+  }
+]

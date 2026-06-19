@@ -1,5 +1,5 @@
 import os, json
-from datos import total_de_plantas , categorias, sectores
+from datos import categorias, sectores
 from validaciones import pedir_entero, pedir_float, pedir_string, pedir_opcion, siguiente_id
 
 
@@ -25,7 +25,7 @@ def guardar_plantas(datos):
 #FUNCIONES
 def alta_planta ():
     print("--- Cargar nueva planta ---")
-    plantas = leer_plantas
+    plantas = leer_plantas()
     nombre_comun = pedir_string('Ingresar nombre comun: ')
     nombre_cientifico = pedir_string('Ingresar nombre cientifico: ')
     categoria = pedir_opcion('Ingresar categoria: ', categorias)
@@ -50,7 +50,7 @@ def alta_planta ():
 
 def listar_planta():
     print("--- Listado de plantas ---")
-    plantas = leer_plantas
+    plantas = leer_plantas()
     if not plantas:
         print("No hay plantas en el vivero para mostrar.")
         return
@@ -59,7 +59,7 @@ def listar_planta():
     print("1. ver todas")
     print("2. Categoria")
     print("3. Sector")
-    opcion_filtro = input("Seleccione una opcion de filtro: ").strip()
+    opcion_filtro = pedir_string("Seleccione una opcion de filtro: ")
 
     resultados = []
     if opcion_filtro == "2":
@@ -90,13 +90,13 @@ def listar_planta():
 
 def buscar_planta ():
     print("--- Buscar planta ---")
-    plantas = leer_plantas
+    plantas = leer_plantas()
     if not plantas:
         print("No hay plantas en el vivero para buscar.")
         return
 
 
-    termino = input('Ingrese el nombre comun o cientifico de la planta a buscar: ').lower()
+    termino = pedir_string('Ingrese el nombre comun o cientifico de la planta a buscar: ')
 
     resultados = []
     for planta in plantas:
@@ -122,28 +122,29 @@ def buscar_planta ():
 
 def modificar_planta ():
     print("--- Modificar planta ---")
-    plantas = leer_plantas
-    nombre_comun = input('Para modificar ingrese el nombre comun: ') .lower()
+    plantas = leer_plantas()
+    nombre_comun = pedir_string('Para modificar ingrese el nombre comun: ') .lower()
     for planta in plantas:
         if nombre_comun == planta['nombre_comun']:
             print('Ingrese los nuevos datos de la planta')
-            planta['sector'] = input('Ingresar sector: ')
-            planta['stock'] = int(input('Ingresar stock: '))
-            planta['precio'] = float(input('Ingresar precio: '))
-            planta['cuidados'] = input('Ingresar cuidados: ')
-    #falta guardar cambios en plantas
+            planta['sector'] = pedir_opcion('Ingresar sector: ')
+            planta['stock'] = pedir_entero('Ingresar stock: ')
+            planta['precio'] = pedir_float('Ingresar precio: ')
+            planta['cuidados'] = pedir_opcion('Ingresar cuidados: ')
+    guardar_plantas(plantas)
 
 
 def baja_planta ():
     print("--- Dar de baja una planta ---")
-    if not total_de_plantas:
+    plantas = leer_plantas()
+    if not plantas:
         print("No hay plantas en el vivero para dar de baja.")
         return
     
-    nombre_comun = input('Para dar de baja ingrese el nombre comun: ') .lower()
+    nombre_comun = pedir_string('Para dar de baja ingrese el nombre comun: ')
     
     planta_encontrada = None
-    for planta in total_de_plantas:
+    for planta in plantas:
         if planta['nombre_comun'] == nombre_comun:
             planta_encontrada = planta
             break
@@ -154,14 +155,15 @@ def baja_planta ():
     
 
     print(f"Planta a eliminar: {planta_encontrada['nombre_comun']}")
-    confirmar = input ("¿Confirma que desea eliminar esta planta? (s/n): ").lower() .strip()
+    confirmar = pedir_string("¿Confirma que desea eliminar esta planta? (s/n): ")
  
 
     if confirmar == "s":
-        total_de_plantas.remove(planta_encontrada)
+        plantas.remove(planta_encontrada)
         print(f"La planta '{planta_encontrada['nombre_comun']}' ha sido eliminada.")
     else:
         print("Operacion cancelada. La planta no ha sido eliminada.")
+    guardar_plantas(plantas)
 
 
 

@@ -1,9 +1,25 @@
-from datos import total_de_clientes , tipos_clientes
+from datos import tipos_clientes
 from validaciones import pedir_email, pedir_string, pedir_opcion, siguiente_id
+import os, json
 
+NOMBRE_ARCHIVO_CLIENTES = os.path.join('data', 'clientes.json')
+
+#ARCHIVOS
+def leer_clientes():
+    if os.path.exists(NOMBRE_ARCHIVO_CLIENTES):
+        with open(NOMBRE_ARCHIVO_CLIENTES, 'rt', encoding='UTF-8') as archivo:
+            datos = json.load(archivo)
+            return datos
+    else:
+        return[]
+    
+def guardar_clientes(datos):
+    with open(NOMBRE_ARCHIVO_CLIENTES, 'wt', encoding='UTF-8') as archivo:
+        json.dump(datos, archivo, ensure_ascii=False, indent=2)
 
 def alta_cliente():
     print("--- Cargar nuevo cliente ---")
+    clientes = leer_clientes()
     dni = pedir_string('Ingresar DNI: ')
     nombre_completo = pedir_string('Ingresar nombre completo: ')
     telefono = pedir_string('Ingresar telefono: ')
@@ -11,13 +27,8 @@ def alta_cliente():
     tipo_cliente = pedir_opcion('Ingresar tipo de cliente: ', tipos_clientes)
     notas = pedir_string('Ingresar notas adicionales, a que se dedica, que le suele interesar, etc: ')
 
-    id = 1
-    if (len(total_de_clientes)>0):
-        ultimo_id = total_de_clientes[-1]
-        id = ultimo_id["id"]+1
-
     cliente = {
-            "id": id,
+            "id": siguiente_id(clientes),
             "dni": dni,
             "nombre_completo": nombre_completo,
             "telefono": telefono,
@@ -25,17 +36,19 @@ def alta_cliente():
             "tipo_cliente": tipo_cliente,
             "notas": notas
     }
-    total_de_clientes.append(cliente)
+    clientes.append(cliente)
+    guardar_clientes(clientes)
     print(f"El cliente '{nombre_completo}' ha sido agregado con ID {cliente['id']}.")
 
 
 def listar_clientes():
     print("--- Listado de clientes ---")
-    if not total_de_clientes:
+    clientes = leer_clientes()
+    if not clientes:
         print("No hay clientes registrados para mostrar.")
         return
     
-    for cliente in total_de_clientes:
+    for cliente in clientes:
         print(f"ID: {cliente['id']}")
         print(f"DNI: {cliente['dni']}")
         print(f"Nombre completo: {cliente['nombre_completo']}")
@@ -47,21 +60,22 @@ def listar_clientes():
 
 def buscar_cliente():
     print("--- Buscar cliente ---")
+    clientes = leer_clientes()
     print("Buscar por:")
     print("1. DNI")
     print("2. Nombre completo")
-    opcion_busqueda = input("Seleccione una opcion de busqueda: ").strip()
+    opcion_busqueda = pedir_string("Seleccione una opcion de busqueda: ")
     
     resultados = []
     
     if opcion_busqueda == "1":
         dni = pedir_string('Ingresar DNI: ')
-        for cliente in total_de_clientes:
+        for cliente in clientes:
             if dni in cliente['dni'].strip():
                 resultados.append(cliente)
     elif opcion_busqueda == "2":
         nombre_completo = pedir_string('Ingresar nombre completo: ')
-        for cliente in total_de_clientes:
+        for cliente in clientes:
             if nombre_completo in cliente['nombre_completo']:
                 resultados.append(cliente)
     else:
@@ -84,28 +98,31 @@ def buscar_cliente():
 
 def modificar_cliente():
     print("--- Modificar cliente ---")
-    if not total_de_clientes:
+    clientes = leer_clientes()
+    if not clientes:
         print("No hay clientes registrados para modificar.")
         return
         
     nombre_completo = pedir_string('Para modificar un cliente, ingrese su nombre completo: ')
-    for cliente in total_de_clientes:
+    for cliente in clientes:
         if cliente ['nombre_completo'] == nombre_completo:
             print("Ingrese los nuevos datos del cliente: ")
             cliente['telefono'] = pedir_string('Ingresar nuevo telefono: ')
             cliente['email'] = pedir_email('Ingresar nuevo email: ')
+    guardar_clientes(clientes)
     
 
 def baja_cliente():
     print("--- Eliminar cliente ---")
-    if not total_de_clientes:
+    clientes = leer_clientes()
+    if not clientes:
         print("No hay clientes registrados para eliminar.")
         return
     
     nombre_completo = pedir_string('Para eliminar un cliente, ingrese su nombre completo: ')
 
     cliente_encontrado = None
-    for cliente in total_de_clientes:
+    for cliente in clientes:
         if cliente['nombre_completo'] == nombre_completo:
             cliente_encontrado = cliente
             break
@@ -116,13 +133,14 @@ def baja_cliente():
     
 
     print(f"Cliente a eliminar: {cliente_encontrado['nombre_completo']}")
-    confirmar = input("Confirma que desea eliminar este cliente? (s/n): ").lower().strip()
+    confirmar = pedir_string("Confirma que desea eliminar este cliente? (s/n): ")
 
     if confirmar == 's':
-        total_de_clientes.remove(cliente_encontrado)
+        clientes.remove(cliente_encontrado)
         print(f"El cliente {cliente_encontrado['nombre_completo']} ha sido eliminado.")
     else:
         print("La operacion ha sido cancelada.")
+    guardar_clientes(clientes)
 
 def menu_clientes():
     while True:

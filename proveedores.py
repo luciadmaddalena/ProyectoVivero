@@ -5,11 +5,30 @@
 
 
 from validaciones import pedir_string, pedir_entero, pedir_email , pedir_fecha, siguiente_id
-from datos import total_de_proveedores
+import os, json
+
+
+NOMBRE_ARCHIVO_PROVEEDORES = os.path.join('data', 'proveedores.json')
+
+
+#ARCHIVOS
+def leer_proveedores():
+    if os.path.exists(NOMBRE_ARCHIVO_PROVEEDORES):
+        with open(NOMBRE_ARCHIVO_PROVEEDORES, 'rt', encoding='UTF-8') as archivo:
+            datos = json.load(archivo)
+            return datos
+    else:
+        return[]
+    
+def guardar_proveedores(datos):
+    with open(NOMBRE_ARCHIVO_PROVEEDORES, 'wt', encoding='UTF-8') as archivo:
+        json.dump(datos, archivo, ensure_ascii=False, indent=2)
+
 
 #registrar proveedor nuevo
 def alta_proveedor ():
     print("--- Cargar nuevo Proveedor ---")
+    proveedores = leer_proveedores()
     nombre_proveedor = pedir_string('Ingresar nombre del proveedor: ')
     telefono = pedir_entero('Ingresar teléfono: ')
     email = pedir_email('Ingresar email:')
@@ -19,15 +38,16 @@ def alta_proveedor ():
     print("--------------------------------")
     
     proveedor = {
-        "id": siguiente_id(total_de_proveedores),
+        "id": siguiente_id(proveedores),
         "nombre_proveedor": nombre_proveedor,
         "telefono": telefono, 
         "email": email,
         "localidad": localidad, 
         "producto_que_provee": producto_que_provee,
-        "fecha_ultimo_pedido": fecha_ultimo_pedido
+        "fecha_ultimo_pedido": str(fecha_ultimo_pedido)
     }
-    total_de_proveedores.append(proveedor)
+    proveedores.append(proveedor)
+    guardar_proveedores(proveedores)
 
     print("--------------------------------")
     print(f"El proveedor '{nombre_proveedor}' ha sido agregado con ID {proveedor['id']}.")
@@ -36,7 +56,9 @@ def alta_proveedor ():
 #listar los proveedores 
 def listar_proveedores():
     print("--- Listado de proveedores ---")
-    if not total_de_proveedores:
+    proveedores = leer_proveedores()
+
+    if not proveedores:
         print("--------------------------------")
         print("No hay proveedores en el registro para mostrar.")
         print("--------------------------------")
@@ -55,12 +77,12 @@ def listar_proveedores():
     resultados = []
     if opcion_filtro == "2":
         nombre_buscado = pedir_string('Ingresar nombre: ')
-        resultados = [proveedor for proveedor in total_de_proveedores if proveedor['nombre_proveedor'] == nombre_buscado]
+        resultados = [proveedor for proveedor in proveedores if proveedor['nombre_proveedor'] == nombre_buscado]
     elif opcion_filtro == "3":
         producto_buscado = pedir_string('Ingresar producto: ')
-        resultados = [proveedor for proveedor in total_de_proveedores if proveedor['producto_que_provee'] == producto_buscado]
+        resultados = [proveedor for proveedor in proveedores if proveedor['producto_que_provee'] == producto_buscado]
     else:
-        resultados = total_de_proveedores
+        resultados = proveedores
 
     if not resultados:
          print("--------------------------------")
@@ -81,6 +103,8 @@ def listar_proveedores():
 
 def buscar_proveedor():
     print("--- Buscar proveedor ---")
+    proveedores = leer_proveedores()
+
     print("Buscar por:")
     print("1. Nombre del proveedor")
     print("2. Producto que provee")
@@ -92,12 +116,12 @@ def buscar_proveedor():
     
     if opcion_busqueda == "1":
         nombre_proveedor = pedir_string('Ingresar nombre del proveedor: ')
-        for proveedor in total_de_proveedores:
+        for proveedor in proveedores:
             if nombre_proveedor in proveedor['nombre_proveedor'].strip():
                 resultados.append(proveedor)
     elif opcion_busqueda == "2":
         producto_que_provee = pedir_string('Ingresar producto que provee: ')
-        for proveedor in total_de_proveedores:
+        for proveedor in proveedores:
             if producto_que_provee in proveedor['producto_que_provee']:
                 resultados.append(proveedor)
     else:
@@ -125,14 +149,16 @@ def buscar_proveedor():
 
 def modificar_proveedor():
     print("--- Modificar Proveedor ---")
-    if not total_de_proveedores:
+    proveedores = leer_proveedores()
+
+    if not proveedores:
         print("--------------------------------")
         print("No hay proveedores registrados para modificar.")
         print("--------------------------------")
         return
     
     nombre_proveedor = pedir_string("Para modificar un proveedor, ingrese el nombre: ")
-    for proveedor in total_de_proveedores: 
+    for proveedor in proveedores: 
      if proveedor ["nombre_proveedor"] == nombre_proveedor:
         print("--------------------------------")
         print("Ingrese los nuevos datos del proveedor")
@@ -144,11 +170,14 @@ def modificar_proveedor():
         print("--------------------------------")
         print(f"Los datos del proveedor se actualizaron")
         print("--------------------------------")
+    guardar_proveedores(proveedores)
         
 
 def baja_proveedor():
     print("--- Eliminar proveedor ---")
-    if not total_de_proveedores:
+    proveedores = leer_proveedores()
+
+    if not proveedores:
         print("--------------------------------")
         print("No hay proveedores registrados para eliminar.")
         print("--------------------------------")
@@ -157,7 +186,7 @@ def baja_proveedor():
     nombre_proveedor =pedir_string("Para eliminar un proveedor, ingrese el nombre: ")
 
     proveedor_encontrado = None
-    for proveedor in total_de_proveedores:
+    for proveedor in proveedores:
      if proveedor["nombre_proveedor"].lower() == nombre_proveedor.lower():
         proveedor_encontrado = proveedor
         break
@@ -173,13 +202,14 @@ def baja_proveedor():
 
 
     if confirmar == 's':
-        total_de_proveedores.remove(proveedor_encontrado)
+        proveedores.remove(proveedor_encontrado)
         print("--------------------------------")
         print(f"El proveedor {proveedor_encontrado['nombre_proveedor']} ha sido eliminado.")
         print("--------------------------------")
 
     else:
         print("La operación ha sido cancelada.")
+    guardar_proveedores(proveedores)
 
 def menu_proveedores():
     while True:

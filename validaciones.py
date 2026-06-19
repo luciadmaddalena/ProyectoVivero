@@ -20,7 +20,7 @@ def pedir_float(mensaje):
 
 def pedir_string(mensaje):
     while True:
-        entrada = input(mensaje).strip()
+        entrada = input(mensaje).strip().lower()
         if not entrada:
             print("Por favor, ingrese un valor valido.")
             continue
@@ -50,9 +50,11 @@ def buscar_por_id (lista, id):
     return None
 
 def siguiente_id (lista):
-    if not lista:
-        return 1
-    return max(item['id'] for item in lista) + 1
+    id = 1
+    if (len(lista)>0):
+        ultimo_id = lista[-1]
+        id = ultimo_id["id"]+1
+    return id
 
 #agregue la validacion para fecha con su formato de dd/mm/aaaa
 
