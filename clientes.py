@@ -17,6 +17,7 @@ def guardar_clientes(datos):
     with open(NOMBRE_ARCHIVO_CLIENTES, 'wt', encoding='UTF-8') as archivo:
         json.dump(datos, archivo, ensure_ascii=False, indent=2)
 
+#FUNCIONES
 def alta_cliente():
     print("--- Cargar nuevo cliente ---")
     clientes = leer_clientes()
@@ -175,6 +176,7 @@ def menu_clientes():
         print("4. Actualizar datos de contacto")
         print("5. Eliminar cliente")
         print("9. Volver al menú principal")
+        print("=" * 25)
 
         opcion = input("Qué querés hacer?")
 

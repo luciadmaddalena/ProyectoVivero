@@ -16,6 +16,7 @@ def mostrar_menu():
     print("4. Proveedores")
     print("5. Encargos especiales")
     print("0. Salir")
+    print("=" * 25)
 
 def main():
     while True:

@@ -1,160 +1,119 @@
+# 🌿 Vivero "El Jacarandá" — Sistema de Gestión
 
+Trabajo Práctico Integrador — **Programación I**
+Tecnicatura en Desarrollo Web — Facultad de Ciencias de la Administración (FCAD), Universidad Nacional de Entre Ríos (UNER)
 
-GITHUB
+## Integrantes
 
-github desktop
+- Lucía Della Maddalena
+- Damaris Abinzano
+- Gabriela López
 
-que pide hacer el programa?
+---
 
-PRIMER PASO - menu principal
-que tiene que hacer el menu?
-mostrar las opciones
-esperar que el usuario escriba algo
-hacer algo segun lo que escribio
-repetir esto hasta que el usuario elija la opcion “salir”
+##  Descripción del proyecto
 
-LISTA DE OPCIONES 
-1. Stock de plantas
-2. Clientes
-3. Ventas
-4. Proveedores
-5. Encargos especiales
-0. Salir
+El sistema gestiona la operación diaria de un vivero: stock de plantas, clientes, ventas, proveedores y encargos especiales. Está pensado para uso local, sin conexión a internet, con persistencia de datos en archivos JSON.
 
+El programa se organiza en un **menú principal** con cinco áreas de trabajo. Cada área es un módulo independiente con su propio archivo `.py`, y todas comparten funciones de validación reutilizables.
 
+```
+═══════════════════════════════════════
+  VIVERO EL JACARANDÁ — Sistema v1.0
+═══════════════════════════════════════
+  1. Stock de plantas
+  2. Clientes
+  3. Ventas
+  4. Proveedores
+  5. Encargos especiales
+  0. Salir
+═══════════════════════════════════════
+```
 
-funcion mostrar menu solo con prints
+Cada módulo tiene su propio submenú con las operaciones de alta, listado, búsqueda, modificación y baja correspondientes.
 
-funcion main con while true llamando a mostrar menu() adentro
+---
 
+##  Módulo: Stock de plantas
 
-items del menu:
-PLANTAS
-     / cargar planta nueva   
-                  (id -
-                   nombre comun (str) - 
-                  nombre cientifico (str) - 
-                  categoria () - 
-                  sector (interior, exterior, invernadero, huerta) - 
-                  cantida de stock (int) - 
-                  precio unitario (float) - 
-                  cuidados basicos (un breve texto) (str)
-                / ver listado completo y filtrar por sector (interior, exterior, invernadero, huerta) o por categoria (arbol, arbusto, suculentas, aromaticas, frutales, ornamentales)
-     / buscar una planta por nombre comun o por nombre cientifico
-     / actualizar stock cuando hay una venta, cuando muere una planta o cuando se reproduce
-     / dar de baja una variedad que ya no se va a vender.
+- Cargar una planta nueva
+- Ver listado completo, con filtro por **sector** (interior, exterior, invernadero, huerta) o por **categoría** (árbol, arbusto, suculenta, aromática, frutal, ornamental)
+- Buscar una planta por nombre común o nombre científico
+- Actualizar stock o precio (por venta, reproducción, o pérdida de la planta)
+- Dar de baja una variedad que ya no se comercializa
 
-CLIENTES (lucia)
-    /   registrar a un cliente cuando viene por primera vez 
-           (id)
-           (dni)
-           (nombre completo)
-           (telefono)
-           (e-mail)
-           (tipo de cliente: particular, paisajista, empresa, vivero amigo)
-           (notas: a que se dedica, que le suele interesar)
-    / listar todos los clientes
-    / buscar clientes por DNI o nombre
-    / actualizar sus datos de contacto
-    / eliminar a un cliente que pidio no figurar mas
-tambien le gustaria poder ver cuando consulta a un cliente, que compro antes y que encargos tiene activos
+**Datos que se guardan por planta:** id, nombre común, nombre científico, categoría, sector, cantidad en stock, precio unitario, cuidados básicos.
 
-VENTAS (gabi)
-/ registrar venta nueva
-      id
-       a que cliente corresponde
-      fecha de la venta
-      items vendidos (codigo de planta + cantidad + precio al momento de la venta) 
-      total de la venta
-      forma de pago (efectivo, transferencia, tarjeta)
- / ver todas las ventas hechas (listar)
- / buscar una venta por dni del cliente o por fecha
- / modificar una venta si se equivoco al cargarla
- / eliminar una venta anulada
+---
 
-     cuando se registra una venta, el stock de cada planta vendida tiene que descontarse automaticamente.
+##  Módulo: Clientes
 
+- Registrar un cliente nuevo
+- Listar todos los clientes
+- Buscar por DNI o por nombre
+- Actualizar datos de contacto
+- Eliminar un cliente
 
-PROVEEDORES (dama)
-/ registrar un proveedor nuevo
-       id
-       nombre o razon social
-       telefono
-       email
-       localidad
-       que provee (lista de strings - ej: [“semillas de tomate”, “tierra negra”])
-       fecha del ultimo pedido que le hicimos
-/ listar todos los proveedores
-/ buscar un proveedor por nombre o por lo que provee
-/actualizar los datos de contacto o lo que provee
- / dar de baja un proveedor con el que se dejo de trabajar.
+Al consultar un cliente, también se muestran sus **compras anteriores** y sus **encargos activos**.
 
-ENCARGOS ESPECIALES
-            / registrar un encargo especial
-                       id
-                       a que cliente corresponde
-                       a que proveedor le pedimos
-                       que planta esta pidiendo ( descripcion libre, ej. limonero de 4 patas , 1.5 mts
-                       cantidad
-                       fecha de pedido
-                       fecha estimada de llegada
-                       estado de pedido (pedido, llego, entregado, cancelado)
-                       senia recibida (si el cliente dejo algo)
-            / listar todos los encargos activos
-            / buscar encargos por cliente, por proveedor o por fecha
-           / actualizar estado del encargo (pedido, llego, entregado)
-           / cancelar un encargo si el cliente se arrepiente
-cando llega un encargo quiere ver los datos del cliente.
+**Datos que se guardan por cliente:** id, DNI, nombre completo, teléfono, email, tipo de cliente (particular, paisajista, empresa, vivero amigo), notas.
 
-cada item del menu, deberia llamar una funcion aparte. ej menu plantas, menu clientes, menu ventas…. etc
+---
 
-estas funciones serian los modulos. - estos se definen siempre antes de ser llamados, es decir antes del main
+##  Módulo: Ventas
 
-Validaciones que necesito sí o sí Cuando ingreso un número (cantidad, precio, código), que verifique que sea un número. 
-Cuando ingreso un email, que al menos chequee que tenga @ . Cuando busco algo y no existe, que me lo diga sin romperse. Los códigos de planta, cliente, venta, proveedor y encargo tienen que ser únicos y autoincrementales. 
+- Registrar una venta nueva (cliente, plantas vendidas, cantidades, forma de pago)
+- Listar todas las ventas
+- Buscar una venta por DNI del cliente o por fecha
+- Modificar una venta cargada con errores
+- Eliminar una venta anulada
 
+ **Importante:** al registrar una venta, el stock de cada planta vendida se descuenta automáticamente. Al eliminar una venta, el stock se restaura.
 
+**Datos que se guardan por venta:** id, id del cliente, fecha, ítems vendidos (planta + cantidad + precio al momento de la venta), total, forma de pago.
 
+---
 
+##  Módulo: Proveedores
 
-def modificar_venta ():
-    print("--- Modificar venta ---")
-    ventas = leer_ventas()
+- Registrar un proveedor nuevo
+- Listar todos los proveedores
+- Buscar por nombre o por lo que provee
+- Actualizar datos de contacto o productos que ofrece
+- Dar de baja un proveedor
 
-    nombre_cliente = pedir_string('Para modificar ingrese el nombre del cliente: ').lower()
-    for venta in ventas:
-        if venta['cliente_venta'] == nombre_cliente.lower():
-            print('Venta encontrada:')
-            print(venta)
-            print('¿Qué desea modificar?')
-            print("1 - Forma de pago")
-            print("2 - Total")
-            print("3 - Cliente")
+**Datos que se guardan por proveedor:** id, nombre o razón social, teléfono, email, localidad, productos que provee, fecha del último pedido.
 
-            opcion = input('Seleccione una opcion de venta: ').strip()
-            if opcion == "1":
-                
-               venta['forma_pago'] = input('Ingresar nueva forma de pago: ')
+---
 
-            elif opcion == '2':
-                input("Ingrese nueva cantidad: ")
-                
-                 total = 0
+##  Módulo: Encargos especiales
 
-                 for item in venta["items"]:
-                    total += item["cantidad"] * item["precio_unit"]
+- Registrar un encargo especial (cliente, proveedor, planta pedida, cantidad, fechas)
+- Listar todos los encargos activos
+- Buscar encargos por cliente, proveedor o fecha
+- Actualizar el estado del encargo (pedido → llegó → entregado)
+- Cancelar un encargo
 
-                 venta["total"] = total
-                 print("Total recalculado.")
-            
-            elif opcion == "3":
-                 venta["id_cliente"] = int(input("Nuevo ID de cliente: "))
+ Cuando el estado de un encargo cambia a **"llegó"**, el sistema muestra automáticamente los datos de contacto del cliente para avisarle.
 
-            else:
-                 print("Opción inválida.")
-                 return
+**Datos que se guardan por encargo:** id, id del cliente, id del proveedor, descripción libre, cantidad, fecha de pedido, fecha estimada de llegada, estado, seña recibida.
 
-            guardar_ventas(ventas)
-            print("Venta modificada correctamente.")
-            return
-    print("No se encontró una venta con ese ID.")
+---
+
+##  Aspectos técnicos
+
+- **Persistencia:** cada módulo guarda su información en un archivo `.json` dentro de la carpeta `data/`, usando las librerías `os` y `json`.
+- **Estructura de datos:** cada área se maneja como una lista de diccionarios. Cada registro individual es un diccionario.
+- **IDs únicos y autoincrementales:** se calculan a partir del ID más alto existente en cada lista, evitando duplicados aunque se eliminen registros.
+- **Validaciones:** se verifica que los campos numéricos sean números válidos, que los emails contengan `@`, y que las búsquedas sin resultados se informen sin interrumpir el programa.
+- **Organización del código:** el proyecto está dividido en módulos (`plantas.py`, `clientes.py`, `ventas.py`, `proveedores.py`, `encargos.py`, `validaciones.py`), conectados entre sí mediante `import`, con `main.py` como punto de entrada único.
+
+---
+
+##  Cómo ejecutar el programa
+
+```bash
+python main.py
+```
+
+El programa se mantiene abierto hasta que el usuario elige la opción **"0. Salir"** desde el menú principal.

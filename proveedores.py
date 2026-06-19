@@ -25,7 +25,7 @@ def guardar_proveedores(datos):
         json.dump(datos, archivo, ensure_ascii=False, indent=2)
 
 
-#registrar proveedor nuevo
+#FUNCIONES
 def alta_proveedor ():
     print("--- Cargar nuevo Proveedor ---")
     proveedores = leer_proveedores()
@@ -224,7 +224,7 @@ def menu_proveedores():
         print("4. Actualizar datos de contacto")
         print("5. Eliminar proveedor")
         print("9. Volver al menú principal")
-        print("--------------------------------")
+        print("=" * 25)
 
         opcion = input("Que querés hacer?")
 

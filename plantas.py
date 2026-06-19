@@ -217,6 +217,7 @@ def menu_plantas():
         print("4. Actualizar stock o precio")
         print("5. Dar de baja una planta")
         print("9. Volver al menú principal")
+        print("=" * 25)
         
         opcion = input("¿Qué querés hacer?")
 

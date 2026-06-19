@@ -10,7 +10,7 @@ NOMBRE_ARCHIVO_PLANTAS = os.path.join('data', 'plantas.json')
 NOMBRE_ARCHIVO_PROVEEDORES = os.path.join('data', 'proveedores.json')
 
 
-#archivos
+#ARCHIVOS
 def leer_encargos():
     ##para ver si un archivo existe
     if os.path.exists(NOMBRE_ARCHIVO_ENCARGOS):
@@ -45,7 +45,7 @@ def leer_proveedores():
 
 
 
-#funciones encargos
+#FUNCIONES
 def alta_encargo():
     print("--- Cargar Encargo especial nuevo---")
     encargos = leer_encargos()
@@ -307,6 +307,7 @@ def menu_encargos():
         print("4. Actualizar estado de encargo")
         print("5. Dar de baja un encargo")
         print("9. Volver al menu principal")
+        print("=" * 25)
         
         opcion = input("Que queres hacer?")
 

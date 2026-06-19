@@ -264,6 +264,7 @@ def menu_ventas():
         print("4. Modificar datos de venta")
         print("5. Eliminar venta")
         print("9. Volver al menú principal")
+        print("=" * 25)
 
         opcion = input("Qué querés hacer?").strip()
 
