@@ -11,8 +11,13 @@ def alta_cliente():
     tipo_cliente = pedir_opcion('Ingresar tipo de cliente: ', tipos_clientes)
     notas = pedir_string('Ingresar notas adicionales, a que se dedica, que le suele interesar, etc: ')
 
+    id = 1
+    if (len(total_de_clientes)>0):
+        ultimo_id = total_de_clientes[-1]
+        id = ultimo_id["id"]+1
+
     cliente = {
-            "id": siguiente_id(total_de_clientes),
+            "id": id,
             "dni": dni,
             "nombre_completo": nombre_completo,
             "telefono": telefono,
