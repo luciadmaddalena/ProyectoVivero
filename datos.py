@@ -7,11 +7,11 @@ total_de_proveedores = [] #agregue la lista de proveedores
 
 # opciones fijas para categorias y sectores
 
-categorias = ("arbol", "arbusto", "suculenta", "aromatica", "frutal", "ornamental", "otro")
-sectores = ("interior", "exterior", "invernadero", "huerta")
-tipos_clientes = ("particular", "paisajista", "empresa", "vivero amigo")
-formas_pago = ("efectivo", "tarjeta", "transferencia", "QR")
+categorias = ("Arbol", "Arbusto", "Suculenta", "Aromática", "Frutal", "Ornamental", "Otro")
+sectores = ("Interior", "Exterior", "Invernadero", "Huerta")
+tipos_clientes = ("Particular", "Paisajista", "Empresa", "Vivero amigo")
+formas_pago = ("Efectivo", "Tarjeta", "Transferencia")
 producto_que_provee = ("Semillas", "Plantines", "Plantas", "Arboles","Tierra", "Macetas", "Fertilizantes", "Herramientas", "Adornos", "Otros")
-estado_encargo = ("pedido", "llego", "entregado", "cancelado")
+estado_encargo = ("Pedido", "Llegó", "Entregado", "Cancelado")
 
 

@@ -25,7 +25,7 @@ def alta_cliente():
     telefono = pedir_string('Ingresar telefono: ')
     email = pedir_email('Ingresar email: ')
     tipo_cliente = pedir_opcion('Ingresar tipo de cliente: ', tipos_clientes)
-    notas = pedir_string('Ingresar notas adicionales, a que se dedica, que le suele interesar, etc: ')
+    notas = pedir_string('Ingresar notas adicionales, a qué se dedica, qué le suele interesar, etc: ')
 
     cliente = {
             "id": siguiente_id(clientes),
@@ -38,17 +38,22 @@ def alta_cliente():
     }
     clientes.append(cliente)
     guardar_clientes(clientes)
+    print("--------------------------------")
     print(f"El cliente '{nombre_completo}' ha sido agregado con ID {cliente['id']}.")
+    print("--------------------------------")
 
 
 def listar_clientes():
     print("--- Listado de clientes ---")
     clientes = leer_clientes()
     if not clientes:
+        print("--------------------------------")
         print("No hay clientes registrados para mostrar.")
+        print("--------------------------------")
         return
     
     for cliente in clientes:
+        print("-------------------------------")
         print(f"ID: {cliente['id']}")
         print(f"DNI: {cliente['dni']}")
         print(f"Nombre completo: {cliente['nombre_completo']}")
@@ -61,10 +66,11 @@ def listar_clientes():
 def buscar_cliente():
     print("--- Buscar cliente ---")
     clientes = leer_clientes()
-    print("Buscar por:")
+    print("Buscar por: ")
     print("1. DNI")
     print("2. Nombre completo")
-    opcion_busqueda = pedir_string("Seleccione una opcion de busqueda: ")
+    print("-------------------------------")
+    opcion_busqueda = pedir_string("Seleccione una opción de busqueda: ")
     
     resultados = []
     
@@ -79,17 +85,22 @@ def buscar_cliente():
             if nombre_completo in cliente['nombre_completo']:
                 resultados.append(cliente)
     else:
-        print("Opcion de busqueda no valida.")
+        print("-------------------------------")
+        print("Opción de busqueda no valida.")
+        print("-------------------------------")
         return
     
     if not resultados:
+        print("-------------------------------")
         print("No se encontraron clientes que coincidan con el filtro seleccionado")
+        print("-------------------------------")
 
     for cliente in resultados:
+        print("-------------------------------")
         print(f"ID: {cliente['id']}")
         print(f"DNI: {cliente['dni']}")
         print(f"Nombre completo: {cliente['nombre_completo']}")
-        print(f"Telefono: {cliente['telefono']}")
+        print(f"Teléfono: {cliente['telefono']}")
         print(f"Email: {cliente['email']}")
         print(f"Tipo de cliente: {cliente['tipo_cliente']}")
         print(f"Notas: {cliente['notas']}")
@@ -100,14 +111,16 @@ def modificar_cliente():
     print("--- Modificar cliente ---")
     clientes = leer_clientes()
     if not clientes:
+        print("-------------------------------")
         print("No hay clientes registrados para modificar.")
+        print("-------------------------------")
         return
         
     nombre_completo = pedir_string('Para modificar un cliente, ingrese su nombre completo: ')
     for cliente in clientes:
         if cliente ['nombre_completo'] == nombre_completo:
             print("Ingrese los nuevos datos del cliente: ")
-            cliente['telefono'] = pedir_string('Ingresar nuevo telefono: ')
+            cliente['telefono'] = pedir_string('Ingresar nuevo teléfono: ')
             cliente['email'] = pedir_email('Ingresar nuevo email: ')
     guardar_clientes(clientes)
     
@@ -116,7 +129,9 @@ def baja_cliente():
     print("--- Eliminar cliente ---")
     clientes = leer_clientes()
     if not clientes:
+        print("-------------------------------")
         print("No hay clientes registrados para eliminar.")
+        print("-------------------------------")
         return
     
     nombre_completo = pedir_string('Para eliminar un cliente, ingrese su nombre completo: ')
@@ -128,7 +143,9 @@ def baja_cliente():
             break
 
     if not cliente_encontrado:
-        print(f"No se econtro cliente con el nombre '{nombre_completo}'.")
+        print("-------------------------------")
+        print(f"No se encontró cliente con el nombre '{nombre_completo}'.")
+        print("-------------------------------")
         return
     
 
@@ -137,9 +154,13 @@ def baja_cliente():
 
     if confirmar == 's':
         clientes.remove(cliente_encontrado)
+        print("--------------------------------")
         print(f"El cliente {cliente_encontrado['nombre_completo']} ha sido eliminado.")
+        print("-------------------------------")
     else:
-        print("La operacion ha sido cancelada.")
+        print("-------------------------------")
+        print("La operación ha sido cancelada.")
+        print("-------------------------------")
     guardar_clientes(clientes)
 
 def menu_clientes():
@@ -150,9 +171,9 @@ def menu_clientes():
         print("3. Buscar cientes por DNI o nombre")
         print("4. Actualizar datos de contacto")
         print("5. Eliminar cliente")
-        print("9. Volver al menu principal")
+        print("9. Volver al menú principal")
 
-        opcion = input("Que queres hacer?")
+        opcion = input("Qué querés hacer?")
 
         if opcion == "1":
             alta_cliente()
@@ -167,7 +188,9 @@ def menu_clientes():
         elif opcion == "9":
              break
         else:
-             print("Opcion no valida, intente de nuevo")
+             print("-------------------------------")
+             print("Opción no válida, intente de nuevo.")
+             print("-------------------------------")
 
 
 

@@ -4,7 +4,7 @@ def pedir_entero(mensaje):
     while True:
         entrada = input(mensaje).strip()
         if not entrada.isdigit():
-            print("por favor, ingrese un numero entero valido.")
+            print("Por favor, ingrese un número entero valido.")
             continue
         numero = int(entrada)
         return numero
@@ -13,7 +13,7 @@ def pedir_float(mensaje):
     while True:
         entrada = input(mensaje).strip()
         if not entrada.isdigit():
-            print("Por favor, ingrese un numero valido.")
+            print("Por favor, ingrese un número valido.")
             continue
         numero = float(entrada)
         return numero
@@ -39,7 +39,7 @@ def pedir_opcion(mensaje, opciones_validas):
     while True:
         entrada = input(mensaje).strip().lower()
         if entrada not in opciones_validas:
-            print(f"Por favor, ingrese una opcion valida: {', '.join(opciones_validas)}")
+            print(f"Por favor, ingrese una opción valida: {', '.join(opciones_validas)}")
             continue
         return entrada
 

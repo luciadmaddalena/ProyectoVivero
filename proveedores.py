@@ -33,7 +33,7 @@ def alta_proveedor ():
     telefono = pedir_entero('Ingresar teléfono: ')
     email = pedir_email('Ingresar email:')
     localidad = pedir_string('Ingresar localidad: ')
-    producto_que_provee = pedir_string('Ingresar producto que provee: ')
+    producto_que_provee = pedir_string('Ingresar producto que provée: ')
     fecha_ultimo_pedido = pedir_fecha('Ingresar la fecha del último pedido: ')
     print("--------------------------------")
     
@@ -62,13 +62,13 @@ def listar_proveedores():
         print("--------------------------------")
         print("No hay proveedores en el registro para mostrar.")
         print("--------------------------------")
-        return # return para salir de la funcion si no encuentra proveedores 
+        return 
     
     print("--------------------------------")
     print("Filtrar por:")
     print("1. Ver todos")
     print("2. Nombre del proveedor")
-    print("3. Producto que provee")
+    print("3. Producto que provée")
     print("--------------------------------")
 
     opcion_filtro = input("Seleccione una opcion de filtro: ").strip()
@@ -97,7 +97,7 @@ def listar_proveedores():
         print(f"Teléfono: {proveedor['telefono']}")
         print(f"Email: {proveedor['email']}")
         print(f"Localidad: {proveedor['localidad']}")
-        print(f"Producto que provee: {proveedor['producto_que_provee']}")
+        print(f"Producto que provée: {proveedor['producto_que_provee']}")
         print(f"Fecha del último pedido: {proveedor['fecha_ultimo_pedido']}")
         print("--------------------------------")
 
@@ -142,7 +142,7 @@ def buscar_proveedor():
         print(f"Teléfono: {proveedor['telefono']}")
         print(f"Email: {proveedor['email']}")
         print(f"Localidad: {proveedor['localidad']}")
-        print(f"Producto que provee: {proveedor['producto_que_provee']}")
+        print(f"Producto que provée: {proveedor['producto_que_provee']}")
         print(f"Fecha del último pedido: {proveedor['fecha_ultimo_pedido']}")
         print("--------------------------------")
 
@@ -208,7 +208,9 @@ def baja_proveedor():
         print("--------------------------------")
 
     else:
+        print("--------------------------------")
         print("La operación ha sido cancelada.")
+        print("--------------------------------")
     guardar_proveedores(proveedores)
 
 def menu_proveedores():
@@ -237,7 +239,9 @@ def menu_proveedores():
         elif opcion == "9":
              break
         else:
+             print("--------------------------------")
              print("Opción no valida, intente de nuevo.")
+             print("--------------------------------")
 
 
    

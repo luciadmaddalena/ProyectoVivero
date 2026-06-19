@@ -47,17 +47,22 @@ def alta_planta ():
     }
     plantas.append(planta)
     guardar_plantas(plantas)
+    print("--------------------------------")
     print(f"La planta '{nombre_comun}' ha sido agregada al stock con ID {planta['id']}.")
+    print("--------------------------------")
 
 def listar_planta():
     print("--- Listado de plantas ---")
     plantas = leer_plantas()
     if not plantas:
+        print("--------------------------------")
         print("No hay plantas en el vivero para mostrar.")
+        print("--------------------------------")
         return
     
+    print(-"-----------------------------")
     print("Filtrar por:")
-    print("1. ver todas")
+    print("1. Ver todas")
     print("2. Categoría")
     print("3. Sector")
     opcion_filtro = pedir_string("Seleccione una opción de filtro: ")
@@ -77,10 +82,13 @@ def listar_planta():
         resultados = plantas
 
     if not resultados:
+        print("--------------------------------")
         print("No se encontraron plantas que coincidan con el filtro seleccionado.")
+        print("--------------------------------")
         return
 
     for planta in resultados:
+        print("-----------------------------")
         print(f"ID: {planta['id']}")
         print(f"Nombre común: {planta['nombre_comun']}")
         print(f"Nombre científico: {planta['nombre_cientifico']}")
@@ -97,7 +105,9 @@ def buscar_planta ():
     print("--- Buscar planta ---")
     plantas = leer_plantas()
     if not plantas:
+        print("--------------------------------")
         print("No hay plantas en el vivero para buscar.")
+        print("--------------------------------")
         return
 
 
@@ -109,10 +119,12 @@ def buscar_planta ():
             resultados.append(planta)
 
     if not resultados:
+        print("--------------------------------")
         print("No se encontraron plantas que coincidan con el nombre.")
         return
     
     for planta in resultados:
+            print("-----------------------------")
             print(f"ID: {planta['id']}")
             print(f"Nombre común: {planta['nombre_comun']}")
             print(f"Nombre científico: {planta['nombre_cientifico']}")
@@ -130,7 +142,9 @@ def modificar_planta ():
     print("--- Modificar planta ---")
     plantas = leer_plantas()
     if not plantas:
+        print("-------------------------------")
         print("No hay plantas en el vivero para modificar.")
+        print("-------------------------------")
         return
     
     nombre_comun = pedir_string('Para modificar ingrese el nombre común: ').lower()
@@ -142,9 +156,13 @@ def modificar_planta ():
             planta['precio'] = pedir_float('Ingresar precio: ')
             planta['cuidados'] = pedir_string('Ingresar cuidados: ')
         else:
+            print("-------------------------------")
             print("No se encontraron plantas con ese nombre.")
+            print("-------------------------------")
     guardar_plantas(plantas)
+    print("-------------------------------")
     print("Planta actualizada correctamente.")
+    print("-------------------------------")
 
 
 def baja_planta ():
@@ -152,6 +170,7 @@ def baja_planta ():
     plantas = leer_plantas()
     if not plantas:
         print("No hay plantas en el vivero para dar de baja.")
+        print("-------------------------------")
         return
     
     nombre_comun = pedir_string('Para dar de baja ingrese el nombre común: ')
@@ -163,7 +182,9 @@ def baja_planta ():
             break
 
     if not planta_encontrada:
-        print("No se encontro ninguna planta con ese nombre.")
+        print("-------------------------------")
+        print("No se encontró ninguna planta con ese nombre.")
+        print("-------------------------------")
         return
     
 
@@ -174,9 +195,13 @@ def baja_planta ():
     if confirmar == "s":
         plantas.remove(planta_encontrada)
         guardar_plantas(plantas)
+        print("-------------------------------")
         print(f"La planta '{planta_encontrada['nombre_comun']}' ha sido eliminada.")
+        print("-------------------------------")
     else:
-        print("Operacion cancelada. La planta no ha sido eliminada.")
+        print("-------------------------------")
+        print("Operación cancelada. La planta no ha sido eliminada.")
+        print("-------------------------------")
     
 
 
@@ -189,9 +214,9 @@ def menu_plantas():
         print("3. Buscar una planta")
         print("4. Actualizar stock o precio")
         print("5. Dar de baja una planta")
-        print("9. Volver al menu principal")
+        print("9. Volver al menú principal")
         
-        opcion = input("¿Que querés hacer?")
+        opcion = input("¿Qué querés hacer?")
 
         if opcion == "1":
             alta_planta()
@@ -206,5 +231,7 @@ def menu_plantas():
         elif opcion == "9":
             break
         else:
+            print("-------------------------------")
             print("Opción no valida, intente de nuevo")
+            print("-------------------------------")
 

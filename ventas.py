@@ -47,7 +47,7 @@ def alta_venta():
     plantas = leer_plantas()
 
     #se pide el nombre del cliente relacionado con la venta
-    cliente_venta = pedir_string("A que cliente corresponde? Escriba nombre completo: ")
+    cliente_venta = pedir_string("A qué cliente corresponde? Escriba nombre completo: ")
     
     cliente_elegido = None
     for cliente in clientes:
@@ -56,16 +56,20 @@ def alta_venta():
             break
     
     if not cliente_elegido:
-        print("No existe ningun cliente con ese nombre.")
+        print("--------------------------------")
+        print("No existe ningún cliente con ese nombre.")
+        print("--------------------------------")
         return
+    print("--------------------------------")
     print("Cliente encontrado:", cliente_elegido["nombre_completo"], "ID: ", cliente_elegido["id"], "DNI: ", cliente_elegido["dni"])
+    print("--------------------------------")
 
     
     fecha = pedir_fecha('Ingresar fecha: ')
     
     
     #se pide el nombre de la planta relacionada con la venta
-    planta_venta = pedir_string("Que planta compro? Escriba nombre comun: ")
+    planta_venta = pedir_string("Qué planta compro? Escriba nombre común: ")
     resultado_planta = []
     for planta in plantas:
         if planta_venta == planta["nombre_comun"].lower():
@@ -73,6 +77,7 @@ def alta_venta():
     
     if not resultado_planta:
         print("No existe ninguna planta con ese nombre.")
+        print("--------------------------------")
         return
     
     print("Planta encontrada:", resultado_planta[0]["nombre_comun"], "ID: ", resultado_planta[0]["id"], "Stock: ", resultado_planta[0]["stock"])
@@ -100,7 +105,9 @@ def alta_venta():
         
     ventas.append(venta)
     guardar_ventas(ventas)
+    print("--------------------------------")
     print(f"La venta N° {venta['id']} ha sido registrada.")
+    print("--------------------------------")
 
     #cuando se registra una venta, el stock de cada planta vendida tiene que
     #descontarse automáticamente.
@@ -124,7 +131,9 @@ def listar_ventas():
     print ("--- Lista de ventas ---")
     ventas = leer_ventas()
     if not ventas:
+        print("--------------------------------")
         print("No hay ventas registradas.")
+        print("--------------------------------")
         return
 
     for venta in ventas:
@@ -152,7 +161,9 @@ def buscar_venta():
             break
         
     if not id_cliente:
-        print("No se encontro ningun cliente con ese DNI.")
+        print("--------------------------------")
+        print("No se encontró ningún cliente con ese DNI.")
+        print("--------------------------------")
         return
         
     resultados = []
@@ -160,15 +171,19 @@ def buscar_venta():
         if id_cliente == venta['id_cliente']:
             resultados.append(venta)
     if not resultados:
+        print("--------------------------------")
         print("No hay ventas para ese cliente.")
+        print("--------------------------------")
         return
         
     for venta in resultados:
+            print("--------------------------------")
             print(f"ID venta: {venta['id']}")
             print(f"Fecha: {venta['fecha']}")
             print(f"Total: {venta['total']}")
             print(f"Forma de pago: {venta['forma_pago']}")
             print("-----------------------------")
+            
 
 
 
@@ -176,18 +191,23 @@ def modificar_venta ():
     print("--- Modificar venta ---")
     ventas = leer_ventas()
 
-    nombre_cliente = pedir_string('Para modificar ingrese el nombre del cliente: ').lower()
+    nombre_cliente = pedir_string('Para modificar, ingrese el nombre del cliente: ').lower()
     for venta in ventas:
         if venta['cliente_venta'] == nombre_cliente.lower():
+            print("--------------------------------")
             print('Venta encontrada. Ingrese los nuevos datos a modificar de la venta')
             venta['items'][0]['cantidad'] = pedir_entero('Ingrese nueva cantidad: ')
             venta['items'][0]['precio_unit'] = pedir_float('Ingresar nuevo precio: ')
             venta['forma_pago'] = pedir_opcion('Ingresar nueva forma de pago: ', formas_pago)
             break
         else:
+            print("--------------------------------")
             print("No se encontraron ventas con ese nombre.")
+            print("--------------------------------")
     guardar_ventas(ventas)
+    print("--------------------------------")
     print("Venta actualizada correctamente.")
+    print("--------------------------------")
 
         
 
@@ -197,7 +217,9 @@ def baja_venta ():
     ventas = leer_ventas()
 
     if not ventas:
+        print("--------------------------------")
         print("No hay ventas en el vivero para dar de baja.")
+        print("--------------------------------")
         return
     
     id_venta = int(input('Para dar de baja ingrese el ID de la venta: '))
@@ -208,8 +230,10 @@ def baja_venta ():
             venta_encontrada = venta
             break
 
-    if not venta_encontrada:#ventas?
-        print("No se encontro ninguna venta con ese ID.")
+    if not venta_encontrada:
+        print("--------------------------------")
+        print("No se encontró ninguna venta con ese ID.")
+        print("--------------------------------")
         return
     
 
@@ -219,10 +243,14 @@ def baja_venta ():
 
     if confirmar == "s":
         ventas.remove(venta_encontrada)
-        guardar_ventas(ventas) #para actualizar el jsan
+        guardar_ventas(ventas)
+        print("--------------------------------")
         print(f"La venta '{venta_encontrada['id']}' ha sido eliminada.")
+        print("--------------------------------")
     else:
-        print("Operacion cancelada. La venta no ha sido eliminada.")
+        print("--------------------------------")
+        print("Operación cancelada. La venta no ha sido eliminada.")
+        print("--------------------------------")
     
 
 def menu_ventas():
@@ -233,9 +261,9 @@ def menu_ventas():
         print("3. Buscar venta por DNI")
         print("4. Modificar datos de venta")
         print("5. Eliminar venta")
-        print("9. Volver al menu principal")
+        print("9. Volver al menú principal")
 
-        opcion = input("Que queres hacer?").strip()
+        opcion = input("Qué querés hacer?").strip()
 
         if opcion == "1":
             alta_venta()
@@ -251,7 +279,9 @@ def menu_ventas():
              print("Volviendo al menú principal...")
              break
         else:
-             print("Opcion no valida, intente de nuevo")
+             print("--------------------------------")
+             print("Opción no válida, intente de nuevo.")
+             print("--------------------------------")
 
 
 

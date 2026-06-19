@@ -17,7 +17,7 @@ def mostrar_menu():
 def main():
     while True:
         mostrar_menu()
-        opcion = input("Que queres hacer?")
+        opcion = input("Qué querés hacer?")
 
         if opcion == "1":
             menu_plantas()
@@ -30,10 +30,10 @@ def main():
         elif opcion == "5":
             menu_encargos()
         elif opcion == "0":
-            print("Hasta luego, esperamos que vuelvas pronto")
+            print("Hasta luego, esperamos que vuelvas pronto!")
             break
         else:
-            print("Opcion no valida, intente de nuevo")
+            print("Opción no válida, intente de nuevo.")
 
 main()
 
