@@ -164,4 +164,3 @@ def menu_plantas():
         else:
             print("Opcion no valida, intente de nuevo")
 
-menu_plantas()

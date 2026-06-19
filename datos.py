@@ -11,6 +11,7 @@ categorias = ("arbol", "arbusto", "suculenta", "aromatica", "frutal", "ornamenta
 sectores = ("interior", "exterior", "invernadero", "huerta")
 tipos_clientes = ("particular", "paisajista", "empresa", "vivero amigo")
 formas_pago = ("efectivo", "tarjeta", "transferencia", "QR")
-estado_encargo = ("pedido", "llego", "entregado", "cancelado")
+producto_que_provee = ("Semillas", "Plantines", "Plantas", "Arboles","Tierra", "Macetas", "Fertilizantes", "Herramientas", "Adornos", "Otros")
+
 
 

@@ -1,4 +1,10 @@
 
+from plantas import menu_plantas
+from clientes import menu_clientes
+from ventas import menu_ventas
+from proveedores import menu_proveedores
+
+
 def mostrar_menu():
     print("==== VIVERO EL JACARANDA ====")
     print("1. Stock de plantas")
@@ -14,22 +20,24 @@ def main():
         opcion = input("Que queres hacer?")
 
         if opcion == "1":
-            print("Mostrando stock de plantas...")
+            menu_plantas()
         elif opcion == "2":
-             print("Mostrando clientes...")
+             menu_clientes()
         elif opcion == "3":
-                print("Mostrando ventas...")
+             menu_ventas()
         elif opcion == "4":
-                print("Mostrando proveedores...")
-        elif opcion == "5":
-                print("Mostrando encargos especiales...")
+             menu_proveedores()
+ #       elif opcion == "5":
+#            menu_encargos_especiales()
         elif opcion == "0":
             print("Hasta luego, esperamos que vuelvas pronto")
             break
         else:
             print("Opcion no valida, intente de nuevo")
 
-main()
+if __name__ == "__main__":
+     main()
+
 
 
 

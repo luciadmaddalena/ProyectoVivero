@@ -126,10 +126,10 @@ def baja_cliente():
 
 def menu_clientes():
     while True:
-        print("=====  Clientes ====")
+        print("=====  Clientes  ====")
         print("1. Cargar cliente")
         print("2. Listar clientes")
-        print("3. Buscar clientes por DNI o nombre")
+        print("3. Buscar cientes por DNI o nombre")
         print("4. Actualizar datos de contacto")
         print("5. Eliminar cliente")
         print("9. Volver al menu principal")
@@ -151,7 +151,6 @@ def menu_clientes():
         else:
              print("Opcion no valida, intente de nuevo")
 
-menu_clientes()
 
 
     
