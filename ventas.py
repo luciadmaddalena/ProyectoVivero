@@ -48,12 +48,13 @@ def alta_venta():
 
     #se pide el nombre del cliente relacionado con la venta
     cliente_venta = pedir_string("A que cliente corresponde? Escriba nombre completo: ")
-    resultado_cliente = []
+    cliente_elegido = none
     for cliente in clientes:
         if cliente_venta == cliente["nombre_completo"].lower():
-            resultado_cliente.append(cliente)
+            cliente_elegido = cliente 
+            break
     
-    if not resultado_cliente:
+    if not cliente_elegido:
         print("No existe ningun cliente con ese nombre.")
         return
     print("Cliente encontrado:", cliente["nombre_completo"], "ID: ", cliente["id"], "DNI: ", ["dni"])
@@ -126,7 +127,7 @@ def listar_ventas():
 
     for venta in ventas:
             print(f"ID: {venta['id']}")
-            print(f"ID Cliente: {venta['id_cliente']}")
+            print(f"ID Cliente: {venta['cliente_venta']}")
             print(f"Fecha: {venta['fecha']}")
             print(f"Items: {venta['items']}")
             print(f"Total: {venta['total']}")
