@@ -255,16 +255,16 @@ def baja_venta ():
 
 def menu_ventas():
     while True:
-        print("=" * 25)
+        print("=" * 30)
         print("💰 VENTAS  ")
-        print("=" * 25)
+        print("=" * 30)
         print("1. Cargar venta")
         print("2. Consultar ventas")
         print("3. Buscar venta por DNI")
         print("4. Modificar datos de venta")
         print("5. Eliminar venta")
         print("9. Volver al menú principal")
-        print("=" * 25)
+        print("=" * 30)
 
         opcion = input("Qué querés hacer?").strip()
 

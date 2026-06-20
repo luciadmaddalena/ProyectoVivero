@@ -166,9 +166,9 @@ def baja_cliente():
 
 def menu_clientes():
     while True:
-        print("=" * 25)
+        print("=" * 30)
         print("👥 CLIENTES")
-        print("=" * 25)
+        print("=" * 30)
 
         print("1. Cargar cliente")
         print("2. Listar clientes")
@@ -176,7 +176,7 @@ def menu_clientes():
         print("4. Actualizar datos de contacto")
         print("5. Eliminar cliente")
         print("9. Volver al menú principal")
-        print("=" * 25)
+        print("=" * 30)
 
         opcion = input("Qué querés hacer?")
 

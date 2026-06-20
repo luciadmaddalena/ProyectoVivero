@@ -6,9 +6,9 @@ from encargos import menu_encargos
 
 
 def mostrar_menu():
-    print("=" * 25)
+    print("=" * 30)
     print("🌿 VIVERO EL JACARANDA 🌿")
-    print("=" * 25)
+    print("=" * 30)
 
     print("1. Stock de plantas")
     print("2. Clientes")
@@ -16,7 +16,7 @@ def mostrar_menu():
     print("4. Proveedores")
     print("5. Encargos especiales")
     print("0. Salir")
-    print("=" * 25)
+    print("=" * 30)
 
 def main():
     while True:

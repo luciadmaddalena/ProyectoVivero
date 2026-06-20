@@ -208,16 +208,16 @@ def baja_planta ():
 
 def menu_plantas():
     while True: 
-        print("=" * 25)
+        print("=" * 30)
         print(" 🪴 STOCK DE PLANTAS  ")
-        print("=" * 25)
+        print("=" * 30)
         print("1. Cargar una planta nueva")
         print("2. Ver listado de plantas")
         print("3. Buscar una planta")
         print("4. Actualizar stock o precio")
         print("5. Dar de baja una planta")
         print("9. Volver al menú principal")
-        print("=" * 25)
+        print("=" * 30)
         
         opcion = input("¿Qué querés hacer?")
 

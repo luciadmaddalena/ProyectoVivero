@@ -298,16 +298,16 @@ def baja_encargo():
 
 def menu_encargos():
     while True: 
-        print("=" * 25)
+        print("=" * 30)
         print("📋 ENCARGOS ESPECIALES 📋")
-        print("=" * 25)
+        print("=" * 30)
         print("1. Cargar una encargo nuevo")
         print("2. Listar encargos activos")
         print("3. Buscar encargo")
         print("4. Actualizar estado de encargo")
         print("5. Dar de baja un encargo")
         print("9. Volver al menu principal")
-        print("=" * 25)
+        print("=" * 30)
         
         opcion = input("Que queres hacer?")
 
