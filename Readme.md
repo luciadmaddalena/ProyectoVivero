@@ -1,4 +1,4 @@
-# 🌿 Vivero "El Jacarandá" — Sistema de Gestión
+# 🌿 VIVERO "EL JACARANDÁ" — Sistema de Gestión
 
 Trabajo Práctico Integrador — **Programación I**
 Tecnicatura en Desarrollo Web — Facultad de Ciencias de la Administración (FCAD), Universidad Nacional de Entre Ríos (UNER)
