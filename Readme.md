@@ -13,8 +13,7 @@ Tecnicatura en Desarrollo Web — Facultad de Ciencias de la Administración (FC
 
 ##  Descripción del proyecto
 
-El sistema gestiona la operación diaria de un vivero: stock de plantas, clientes, ventas, proveedores y encargos especiales. Está pensado para uso local, sin conexión a internet, con persistencia de datos en archivos JSON.
-
+El sistema gestiona la operación diaria de un vivero: stock de plantas, clientes, ventas, proveedores y encargos especiales.
 El programa se organiza en un **menú principal** con cinco áreas de trabajo. Cada área es un módulo independiente con su propio archivo `.py`, y todas comparten funciones de validación reutilizables.
 
 ```
@@ -39,8 +38,8 @@ Cada módulo tiene su propio submenú con las operaciones de alta, listado, bús
 - Cargar una planta nueva
 - Ver listado completo, con filtro por **sector** (interior, exterior, invernadero, huerta) o por **categoría** (árbol, arbusto, suculenta, aromática, frutal, ornamental)
 - Buscar una planta por nombre común o nombre científico
-- Actualizar stock o precio (por venta, reproducción, o pérdida de la planta)
-- Dar de baja una variedad que ya no se comercializa
+- Actualizar stock o precio.
+- Dar de baja una planta
 
 **Datos que se guardan por planta:** id, nombre común, nombre científico, categoría, sector, cantidad en stock, precio unitario, cuidados básicos.
 
@@ -54,21 +53,19 @@ Cada módulo tiene su propio submenú con las operaciones de alta, listado, bús
 - Actualizar datos de contacto
 - Eliminar un cliente
 
-Al consultar un cliente, también se muestran sus **compras anteriores** y sus **encargos activos**.
-
 **Datos que se guardan por cliente:** id, DNI, nombre completo, teléfono, email, tipo de cliente (particular, paisajista, empresa, vivero amigo), notas.
 
 ---
 
 ##  Módulo: Ventas
 
-- Registrar una venta nueva (cliente, plantas vendidas, cantidades, forma de pago)
+- Registrar una venta nueva
 - Listar todas las ventas
-- Buscar una venta por DNI del cliente o por fecha
-- Modificar una venta cargada con errores
-- Eliminar una venta anulada
+- Buscar una venta
+- Modificar una venta
+- Eliminar una venta 
 
- **Importante:** al registrar una venta, el stock de cada planta vendida se descuenta automáticamente. Al eliminar una venta, el stock se restaura.
+ **Importante:** al registrar una venta, el stock de cada planta vendida se descuenta automáticamente.
 
 **Datos que se guardan por venta:** id, id del cliente, fecha, ítems vendidos (planta + cantidad + precio al momento de la venta), total, forma de pago.
 
@@ -99,15 +96,6 @@ Al consultar un cliente, también se muestran sus **compras anteriores** y sus *
 **Datos que se guardan por encargo:** id, id del cliente, id del proveedor, descripción libre, cantidad, fecha de pedido, fecha estimada de llegada, estado, seña recibida.
 
 ---
-
-##  Aspectos técnicos
-
-- **Persistencia:** cada módulo guarda su información en un archivo `.json` dentro de la carpeta `data/`, usando las librerías `os` y `json`.
-- **Estructura de datos:** cada área se maneja como una lista de diccionarios. Cada registro individual es un diccionario.
-- **IDs únicos y autoincrementales:** se calculan a partir del ID más alto existente en cada lista, evitando duplicados aunque se eliminen registros.
-- **Validaciones:** se verifica que los campos numéricos sean números válidos, que los emails contengan `@`, y que las búsquedas sin resultados se informen sin interrumpir el programa.
-- **Organización del código:** el proyecto está dividido en módulos (`plantas.py`, `clientes.py`, `ventas.py`, `proveedores.py`, `encargos.py`, `validaciones.py`), conectados entre sí mediante `import`, con `main.py` como punto de entrada único.
-
 ---
 
 ##  Cómo ejecutar el programa
